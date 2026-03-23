@@ -2,7 +2,42 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>3D Missile Defense — Guidance Algorithm Lab</title>
+<meta name="description" content="Interactive 3D missile defence simulation. Compare guidance algorithms — Proportional Navigation, Pure Pursuit, CLOS — against SRBM, MRBM, ICBM and cruise missile threats. Inspired by real air defence engagements.">
+<meta name="author" content="Manoj">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yourdomain.com/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="3D Missile Defense — Guidance Algorithm Lab">
+<meta property="og:description" content="Defend your city in real-time. 5 guidance laws, 4 threat types, live radar. The maths is real.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yourdomain.com/">
+<meta property="og:image" content="https://yourdomain.com/preview.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="3D Missile Defense — Guidance Algorithm Lab">
+<meta name="twitter:description" content="Defend your city in real-time. 5 guidance laws, 4 threat types, live radar. The maths is real.">
+<meta name="twitter:image" content="https://yourdomain.com/preview.png">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "3D Missile Defense — Guidance Algorithm Lab",
+  "description": "Interactive 3D missile defence simulation comparing real guidance algorithms against multiple threat types.",
+  "url": "https://yourdomain.com/",
+  "applicationCategory": "Simulation",
+  "operatingSystem": "Any",
+  "author": {
+    "@type": "Person",
+    "name": "Manoj"
+  }
+}
+</script>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:#000; overflow:hidden; font-family:'Courier New',monospace; color:#cef; }
@@ -250,6 +285,72 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
   font-size:9px; color:#678; margin-top:6px; letter-spacing:1px;
   animation:fade-in-up .6s ease 1s both;
 }
+
+/* ── About Modal ── */
+#about-overlay {
+  position:fixed; inset:0; z-index:10000;
+  background:rgba(0,4,16,0.92); display:flex;
+  align-items:center; justify-content:center;
+  font-family:'Courier New',monospace;
+  opacity:0; pointer-events:none; transition:opacity .2s;
+}
+#about-overlay.open { opacity:1; pointer-events:all; }
+#about-modal {
+  max-width:520px; width:90%; background:rgba(0,12,36,0.97);
+  border:1px solid #0af5; border-radius:10px; padding:28px 32px;
+  color:#cef; position:relative;
+}
+#about-modal h2 { font-size:13px; letter-spacing:3px; color:#0af;
+  text-transform:uppercase; margin-bottom:18px; text-align:center; }
+#about-modal .about-avatar {
+  width:64px; height:64px; border-radius:50%;
+  border:2px solid #0af5; margin:0 auto 14px;
+  background:rgba(0,80,180,0.3); display:flex;
+  align-items:center; justify-content:center;
+  font-size:28px;
+}
+#about-modal .about-name {
+  font-size:18px; font-weight:bold; color:#fff;
+  text-align:center; margin-bottom:4px;
+}
+#about-modal .about-tagline {
+  font-size:10px; color:#7af; text-align:center;
+  letter-spacing:1px; margin-bottom:16px;
+}
+#about-modal .about-bio {
+  font-size:11px; color:#aac; line-height:1.7;
+  border-top:1px solid #0af3; padding-top:14px; margin-bottom:14px;
+}
+#about-modal .about-links {
+  display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+  margin-bottom:16px;
+}
+#about-modal .about-link {
+  font-size:10px; color:#0af; border:1px solid #0af5;
+  padding:4px 12px; border-radius:4px; text-decoration:none;
+  letter-spacing:1px; transition:all .15s;
+}
+#about-modal .about-link:hover { background:rgba(0,140,255,0.2); color:#fff; }
+#about-modal .about-project {
+  font-size:10px; color:#678; text-align:center;
+  border-top:1px solid #07f3; padding-top:12px; line-height:1.6;
+}
+#about-close {
+  position:absolute; top:12px; right:16px;
+  background:none; border:none; color:#07f; font-size:18px;
+  cursor:pointer; font-family:inherit; line-height:1;
+}
+#about-close:hover { color:#fff; }
+
+/* About button (in-sim) */
+#about-btn {
+  position:fixed; bottom:8px; right:196px; z-index:102;
+  font-size:10px; color:#07f; background:rgba(0,8,24,.75);
+  border:1px solid #07f4; border-radius:6px;
+  padding:5px 10px; cursor:pointer; font-family:'Courier New',monospace;
+  letter-spacing:1px; transition:all .15s;
+}
+#about-btn:hover { color:#0af; border-color:#0af6; }
 </style>
 </head>
   <!-- Google tag (gtag.js) -->
@@ -492,10 +593,41 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
       <button class="intro-btn intro-btn-secondary" id="intro-skip">
         Skip Intro
       </button>
+      <button class="intro-btn intro-btn-secondary" id="intro-about">
+        About
+      </button>
     </div>
 
     <div class="intro-cost-note">
       Each interceptor costs ~$3.5M USD · Each incoming threat costs ~$50K · The asymmetry is the point — and the attacker's advantage.
+    </div>
+  </div>
+</div>
+
+<!-- In-sim About button -->
+<button id="about-btn" onclick="document.getElementById('about-overlay').classList.add('open')">ⓘ About</button>
+
+<!-- About Modal -->
+<div id="about-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div id="about-modal">
+    <button id="about-close" onclick="document.getElementById('about-overlay').classList.remove('open')">✕</button>
+    <h2>About</h2>
+    <div class="about-avatar">👤</div>
+    <div class="about-name">Manoj</div>
+    <div class="about-tagline">Researcher · Builder · Defence &amp; Technology</div>
+    <div class="about-bio">
+      I built this simulation to make missile guidance mathematics tangible — not as an abstraction, but as something you can feel the consequence of.<br><br>
+      The equations here (Proportional Navigation, Augmented PN, CLOS) are the same ones running inside real interceptor systems. Changing N by 1 changes whether the city stands. That asymmetry — a $3.5M interceptor chasing a $50K threat — is the strategic reality I wanted people to sit with.<br><br>
+      Inspired by real air defence engagements, 2024–2025.
+    </div>
+    <div class="about-links">
+      <a class="about-link" href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a>
+      <a class="about-link" href="https://twitter.com/yourhandle" target="_blank" rel="noopener">Twitter / X</a>
+      <a class="about-link" href="https://yourwebsite.com" target="_blank" rel="noopener">Website</a>
+    </div>
+    <div class="about-project">
+      Built with Three.js · No framework · Single HTML file<br>
+      Open source — MIT License
     </div>
   </div>
 </div>
@@ -2114,6 +2246,9 @@ const UI = {
 
   document.getElementById('intro-start').addEventListener('click', startSim);
   document.getElementById('intro-skip').addEventListener('click', startSim);
+  document.getElementById('intro-about').addEventListener('click', function() {
+    document.getElementById('about-overlay').classList.add('open');
+  });
 
   // Also allow pressing Enter or Space to start
   document.addEventListener('keydown', function onKey(e) {
