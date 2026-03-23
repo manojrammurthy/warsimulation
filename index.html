@@ -7,20 +7,20 @@
 <meta name="description" content="Interactive 3D missile defence simulation. Compare guidance algorithms — Proportional Navigation, Pure Pursuit, CLOS — against SRBM, MRBM, ICBM and cruise missile threats. Inspired by real air defence engagements.">
 <meta name="author" content="Manoj">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://yourdomain.com/">
+<link rel="canonical" href="https://manoj-kumar-portfolio-hub.vercel.app/">
 
 <!-- Open Graph -->
 <meta property="og:title" content="3D Missile Defense — Guidance Algorithm Lab">
 <meta property="og:description" content="Defend your city in real-time. 5 guidance laws, 4 threat types, live radar. The maths is real.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://yourdomain.com/">
-<meta property="og:image" content="https://yourdomain.com/preview.png">
+<meta property="og:url" content="https://manoj-kumar-portfolio-hub.vercel.app/">
+<meta property="og:image" content="https://manoj-kumar-portfolio-hub.vercel.app/preview.png">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="3D Missile Defense — Guidance Algorithm Lab">
 <meta name="twitter:description" content="Defend your city in real-time. 5 guidance laws, 4 threat types, live radar. The maths is real.">
-<meta name="twitter:image" content="https://yourdomain.com/preview.png">
+<meta name="twitter:image" content="https://manoj-kumar-portfolio-hub.vercel.app/preview.png">
 
 <!-- Structured Data -->
 <script type="application/ld+json">
@@ -29,12 +29,13 @@
   "@type": "WebApplication",
   "name": "3D Missile Defense — Guidance Algorithm Lab",
   "description": "Interactive 3D missile defence simulation comparing real guidance algorithms against multiple threat types.",
-  "url": "https://yourdomain.com/",
+  "url": "https://manoj-kumar-portfolio-hub.vercel.app/",
   "applicationCategory": "Simulation",
   "operatingSystem": "Any",
   "author": {
     "@type": "Person",
-    "name": "Manoj"
+    "name": "Manoj Kumar",
+    "url": "https://manoj-kumar-portfolio-hub.vercel.app/"
   }
 }
 </script>
@@ -184,7 +185,7 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
   background:radial-gradient(ellipse at 60% 40%, #0a0220 0%, #000510 60%, #000 100%);
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   font-family:'Courier New',monospace; color:#cef; overflow-y:auto;
-  padding:10px 20px;
+  padding:24px 32px;
 }
 #intro-overlay.hidden { display:none; }
 
@@ -210,35 +211,35 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
   from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)}
 }
 .intro-card {
-  position:relative; z-index:10; max-width:900px; width:100%;
+  position:relative; z-index:10; max-width:960px; width:100%;
   text-align:center;
 }
 .intro-inspired {
-  font-size:9px; color:#556; letter-spacing:2px; text-transform:uppercase;
-  margin-bottom:5px; font-style:italic;
+  font-size:11px; color:#7890aa; letter-spacing:2px; text-transform:uppercase;
+  margin-bottom:8px; font-style:italic;
   animation:fade-in-up .6s ease .05s both;
 }
 .intro-headline {
-  font-size:clamp(18px,3vw,30px); font-weight:bold; letter-spacing:2px;
-  color:#fff; line-height:1.15; margin-bottom:3px;
+  font-size:clamp(26px,4vw,42px); font-weight:bold; letter-spacing:2px;
+  color:#fff; line-height:1.2; margin-bottom:6px;
   animation:fade-in-up .6s ease .15s both;
   text-shadow:0 0 40px #0af8, 0 0 80px #0af4;
 }
 .intro-sub {
-  font-size:10px; color:#7af; letter-spacing:2px; text-transform:uppercase;
-  margin-bottom:8px; animation:fade-in-up .6s ease .3s both;
+  font-size:13px; color:#7af; letter-spacing:2px; text-transform:uppercase;
+  margin-bottom:12px; animation:fade-in-up .6s ease .3s both;
 }
 .intro-divider {
-  width:100px; height:1px; background:linear-gradient(90deg,transparent,#0af,transparent);
-  margin:0 auto 8px; animation:fade-in-up .6s ease .4s both;
+  width:120px; height:1px; background:linear-gradient(90deg,transparent,#0af,transparent);
+  margin:0 auto 14px; animation:fade-in-up .6s ease .4s both;
 }
 .intro-story {
-  text-align:left; font-size:11px; line-height:1.6; color:#b8d4f0;
-  background:rgba(0,20,60,0.45); border:1px solid #0af3;
-  border-radius:8px; padding:10px 16px; margin-bottom:8px;
+  text-align:left; font-size:13px; line-height:1.8; color:#c8ddf0;
+  background:rgba(0,20,60,0.50); border:1px solid #0af4;
+  border-radius:10px; padding:18px 24px; margin-bottom:12px;
   animation:fade-in-up .6s ease .5s both;
 }
-.intro-story p { margin-bottom:6px; }
+.intro-story p { margin-bottom:10px; }
 .intro-story p:last-child { margin-bottom:0; }
 .intro-story .highlight { color:#ffdd66; font-style:italic; }
 .intro-story .red { color:#ff6655; }
@@ -246,17 +247,17 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
 .intro-story strong { color:#fff; }
 .intro-features {
   display:grid; grid-template-columns:repeat(4,1fr);
-  gap:6px; margin-bottom:8px; animation:fade-in-up .6s ease .65s both;
+  gap:8px; margin-bottom:12px; animation:fade-in-up .6s ease .65s both;
 }
 .intro-feat {
-  background:rgba(0,30,70,0.55); border:1px solid #07f4;
-  border-radius:6px; padding:7px 10px; text-align:left;
+  background:rgba(0,30,70,0.55); border:1px solid #07f5;
+  border-radius:8px; padding:12px 14px; text-align:left;
 }
-.intro-feat .feat-icon { font-size:15px; margin-bottom:2px; }
-.intro-feat .feat-title { font-size:9px; font-weight:bold; color:#0af; letter-spacing:1px; text-transform:uppercase; margin-bottom:2px; }
-.intro-feat .feat-desc  { font-size:9px; color:#8ab; line-height:1.4; }
+.intro-feat .feat-icon { font-size:20px; margin-bottom:6px; }
+.intro-feat .feat-title { font-size:11px; font-weight:bold; color:#0af; letter-spacing:1px; text-transform:uppercase; margin-bottom:5px; }
+.intro-feat .feat-desc  { font-size:11px; color:#9bc; line-height:1.6; }
 .intro-ticker {
-  font-size:9px; color:#f80; letter-spacing:2px; margin-bottom:8px;
+  font-size:11px; color:#f80; letter-spacing:2px; margin-bottom:12px;
   animation:fade-in-up .6s ease .6s both; text-transform:uppercase;
 }
 @keyframes ticker-blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
@@ -266,9 +267,9 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
   animation:fade-in-up .6s ease .8s both;
 }
 .intro-btn {
-  padding:9px 28px; font-family:'Courier New',monospace;
-  font-size:11px; font-weight:bold; letter-spacing:2px;
-  border-radius:5px; cursor:pointer; border:none; text-transform:uppercase;
+  padding:11px 32px; font-family:'Courier New',monospace;
+  font-size:13px; font-weight:bold; letter-spacing:2px;
+  border-radius:6px; cursor:pointer; border:none; text-transform:uppercase;
   transition:all .2s;
 }
 .intro-btn-primary {
@@ -282,8 +283,8 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
 }
 .intro-btn-secondary:hover { background:rgba(0,60,120,0.7); color:#cef; }
 .intro-cost-note {
-  font-size:9px; color:#678; margin-top:6px; letter-spacing:1px;
-  animation:fade-in-up .6s ease 1s both;
+  font-size:11px; color:#7890aa; margin-top:10px; letter-spacing:1px;
+  animation:fade-in-up .6s ease 1s both; line-height:1.6;
 }
 
 /* ── About Modal ── */
@@ -621,9 +622,9 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
       Inspired by real air defence engagements, 2024–2025.
     </div>
     <div class="about-links">
-      <a class="about-link" href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a>
-      <a class="about-link" href="https://twitter.com/yourhandle" target="_blank" rel="noopener">Twitter / X</a>
-      <a class="about-link" href="https://yourwebsite.com" target="_blank" rel="noopener">Website</a>
+      <a class="about-link" href="https://github.com/manojrammurthy" target="_blank" rel="noopener">GitHub</a>
+      <a class="about-link" href="https://x.com/manojrammoorthy" target="_blank" rel="noopener">Twitter / X</a>
+      <a class="about-link" href="https://manoj-kumar-portfolio-hub.vercel.app/" target="_blank" rel="noopener">Website</a>
     </div>
     <div class="about-project">
       Built with Three.js · No framework · Single HTML file<br>

@@ -3,7 +3,7 @@
 > An interactive 3D simulation where you defend a city against incoming missile threats using real guidance algorithms.
 > Inspired by real-world air defence engagements, 2024–2025.
 
-**[Live Demo →](https://yourdomain.com)**
+**[Live Demo →](https://manoj-kumar-portfolio-hub.vercel.app/)**
 
 ---
 
@@ -87,9 +87,9 @@ python3 -m http.server 8080
 
 **Manoj** — researcher, builder, curious about the intersection of conflict, technology, and decision-making under pressure.
 
-- GitHub: [github.com/yourusername](https://github.com/yourusername)
-- Twitter/X: [@yourhandle](https://twitter.com/yourhandle)
-- Website: [yourwebsite.com](https://yourwebsite.com)
+- GitHub: [github.com/manojrammurthy](https://github.com/manojrammurthy)
+- Twitter/X: [@manojrammoorthy](https://x.com/manojrammoorthy)
+- Website: [manoj-kumar-portfolio-hub.vercel.app](https://manoj-kumar-portfolio-hub.vercel.app/)
 
 ---
 
