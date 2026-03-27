@@ -116,6 +116,109 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
 #status.hit      { background:rgba(100,10,0,.5);  border-color:#f444; color:#f66; }
 #status.good     { background:rgba(0,100,40,.5);  border-color:#0f84; color:#0f8; }
 
+/* ── Bottom Action Bar ── */
+#action-bar {
+  position:fixed; bottom:0; left:0; right:0; height:90px;
+  background:rgba(0,3,14,0.97); border-top:1px solid #0af3;
+  display:flex; align-items:center; justify-content:center;
+  gap:18px; z-index:200; padding:0 20px;
+}
+.ab-sect { display:flex; flex-direction:column; align-items:center; gap:5px; }
+.ab-lbl  { font-size:9px; color:#07f; letter-spacing:2px; text-transform:uppercase; }
+.ab-sep  { width:1px; height:58px; background:linear-gradient(to bottom,transparent,#0af3,transparent); flex-shrink:0; }
+
+/* Threat icon buttons */
+.thr-ab-btn {
+  display:flex; flex-direction:column; align-items:center; gap:3px;
+  padding:5px 10px; min-width:50px;
+  border:1px solid #07f4; border-radius:7px;
+  background:rgba(0,16,50,0.6); color:#7af;
+  font-size:9px; letter-spacing:1px; text-transform:uppercase;
+  font-family:'Courier New',monospace; cursor:pointer; transition:all .15s;
+}
+.thr-ab-btn .ab-ico { font-size:16px; line-height:1; }
+.thr-ab-btn.on  { background:rgba(0,70,180,0.5); border-color:#0af; color:#fff; box-shadow:0 0 8px #0af4; }
+.thr-ab-btn:hover { background:rgba(0,50,130,0.5); }
+
+/* Guidance law buttons */
+.law-ab-btn {
+  padding:7px 12px; font-size:11px; font-family:'Courier New',monospace;
+  font-weight:bold; letter-spacing:1px; border-radius:6px; cursor:pointer; transition:all .15s;
+  background:rgba(0,16,50,0.6); color:#7af; border:1px solid #07f4;
+}
+.law-ab-btn.on {
+  background:rgba(0,70,180,0.4); color:#fff;
+  border-color:var(--lc,#0af); box-shadow:0 0 10px var(--lc,#0af4);
+}
+.law-ab-btn:hover { background:rgba(0,50,130,0.5); }
+
+/* 🚀 THE INTERCEPT BUTTON */
+#ab-intercept {
+  width:158px; height:68px;
+  background:linear-gradient(160deg,#001a00,#003800,#002800);
+  border:2px solid #00e87a; border-radius:14px;
+  color:#00e87a; font-family:'Courier New',monospace;
+  font-size:15px; font-weight:bold; letter-spacing:3px; text-transform:uppercase;
+  cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+  box-shadow:0 0 20px rgba(0,232,122,.25), inset 0 0 18px rgba(0,232,122,.07);
+  transition:box-shadow .1s, transform .1s;
+}
+#ab-intercept .key-hint { font-size:9px; color:#0a7; letter-spacing:2px; font-weight:normal; }
+#ab-intercept:hover { box-shadow:0 0 36px rgba(0,232,122,.5), inset 0 0 22px rgba(0,232,122,.15); }
+#ab-intercept:active { transform:scale(0.94); box-shadow:0 0 60px rgba(0,232,122,.85); }
+@keyframes int-pulse {
+  0%,100%{ box-shadow:0 0 20px rgba(0,232,122,.25),inset 0 0 18px rgba(0,232,122,.07); border-color:#00e87a; }
+  50%    { box-shadow:0 0 50px rgba(0,232,122,.7),0 0 90px rgba(0,232,122,.2),inset 0 0 26px rgba(0,232,122,.2); border-color:#66ffaa; }
+}
+#ab-intercept.pulsing { animation:int-pulse .85s ease-in-out infinite; }
+
+/* Launch button (sandbox) */
+#ab-launch {
+  width:110px; height:52px;
+  background:rgba(140,18,18,.65); border:1px solid #f55;
+  border-radius:10px; color:#fcc; font-family:'Courier New',monospace;
+  font-size:11px; font-weight:bold; letter-spacing:1px; cursor:pointer;
+  box-shadow:0 0 10px rgba(255,60,60,.18); transition:all .1s;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+}
+#ab-launch .key-hint { font-size:9px; color:#a66; font-weight:normal; letter-spacing:1px; }
+#ab-launch:hover { box-shadow:0 0 22px rgba(255,60,60,.4); }
+#ab-launch:active { transform:scale(0.95); }
+#ab-launch:disabled { opacity:0.3; cursor:not-allowed; box-shadow:none; }
+
+/* Pause / Wave quick buttons */
+.ab-ctrl-btn {
+  padding:7px 14px; border-radius:8px; cursor:pointer;
+  font-family:'Courier New',monospace; font-size:10px; font-weight:bold;
+  letter-spacing:1px; transition:all .15s;
+}
+#ab-pause { background:rgba(130,100,0,.55); border:1px solid #fa0; color:#fda; }
+#ab-pause:hover { background:rgba(180,130,0,.65); }
+#ab-wave-ab { background:rgba(0,50,150,.55); border:1px solid #4af; color:#adf; }
+#ab-wave-ab.on { background:rgba(0,100,255,.45); border-color:#0af; color:#fff; }
+#ab-wave-ab:hover { background:rgba(0,70,200,.6); }
+
+/* Left panel collapsible */
+#left  { transition:transform .25s ease; }
+#left.collapsed { transform:translateX(-280px); }
+#panel-toggle {
+  position:fixed; left:0; top:50%; transform:translateY(-50%);
+  z-index:201; background:rgba(0,6,20,.92); border:1px solid #0af4;
+  border-left:none; border-radius:0 6px 6px 0;
+  padding:12px 5px; cursor:pointer; color:#0af;
+  font-family:'Courier New',monospace; font-size:10px;
+  writing-mode:vertical-rl; letter-spacing:2px; transition:all .2s;
+}
+#panel-toggle:hover { color:#fff; background:rgba(0,16,50,.95); }
+
+/* Lift overlapping elements above action bar */
+#hud        { bottom:100px !important; }
+#radar      { bottom:100px !important; }
+#radar-label{ bottom:285px !important; }
+#legend     { bottom:100px !important; }
+#about-btn  { bottom:100px !important; }
+#hints      { display:none !important; }   /* replaced by action bar */
+
 /* ── Mini Radar ── */
 #radar {
   position:fixed; bottom:60px; right:8px; width:180px; height:180px;
@@ -343,6 +446,77 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
 }
 #about-close:hover { color:#fff; }
 
+/* ── Wave Mode panel (top-centre) ── */
+#wave-panel {
+  position:fixed; top:8px; left:50%; transform:translateX(-50%);
+  z-index:102; display:flex; align-items:center; gap:18px;
+  background:rgba(0,8,24,0.93); border:1px solid #0af5;
+  border-radius:8px; padding:7px 22px; font-family:'Courier New',monospace;
+  pointer-events:none; opacity:0; transition:opacity .3s;
+}
+#wave-panel.on { opacity:1; pointer-events:all; }
+#wave-panel .wp-lbl { font-size:9px; color:#07f; letter-spacing:2px; text-transform:uppercase; }
+#wave-panel .wp-val { font-size:16px; font-weight:bold; color:#fff; }
+#wave-hp { display:flex; gap:4px; align-items:center; margin-top:3px; }
+#wave-hp .heart { font-size:15px; transition:opacity .3s,filter .3s; }
+#wave-hp .heart.dead { opacity:0.18; filter:grayscale(1); }
+#wp-score-val { color:#ffdd44 !important; }
+
+/* ── Wave overlay (clear / game-over) ── */
+#wave-overlay {
+  position:fixed; inset:0; z-index:1500;
+  background:rgba(0,4,16,0.90);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-family:'Courier New',monospace;
+  opacity:0; pointer-events:none; transition:opacity .35s;
+}
+#wave-overlay.on { opacity:1; pointer-events:all; }
+@keyframes wov-pop { from{transform:scale(.8);opacity:0} to{transform:scale(1);opacity:1} }
+#wov-title {
+  font-size:clamp(30px,5vw,54px); font-weight:bold; letter-spacing:4px;
+  color:#fff; text-shadow:0 0 40px #0af8; margin-bottom:10px;
+  animation: wov-pop .35s ease both;
+}
+#wov-sub   { font-size:14px; color:#7af; letter-spacing:2px; margin-bottom:18px; }
+#wov-score { font-size:22px; font-weight:bold; color:#ffdd44; margin-bottom:5px; }
+#wov-hi    { font-size:11px; color:#07f; letter-spacing:1px; margin-bottom:28px; }
+.wov-btn {
+  margin:5px; padding:11px 36px; font-family:'Courier New',monospace;
+  font-size:13px; font-weight:bold; letter-spacing:2px;
+  border-radius:6px; cursor:pointer; text-transform:uppercase; transition:all .2s;
+}
+#wov-next { background:linear-gradient(135deg,#0055cc,#0099ff); color:#fff;
+  border:1px solid #4af; box-shadow:0 0 20px #0af6; }
+#wov-next:hover { box-shadow:0 0 35px #0afc; transform:translateY(-2px); }
+#wov-menu { background:rgba(0,40,80,.6); color:#7af; border:1px solid #07f5; }
+
+/* ── Achievement toasts ── */
+#toast-tray {
+  position:fixed; bottom:72px; left:50%; transform:translateX(-50%);
+  z-index:400; display:flex; flex-direction:column; align-items:center; gap:7px;
+  pointer-events:none;
+}
+@keyframes t-in  { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+@keyframes t-out { from{opacity:1} to{opacity:0;transform:translateY(-8px)} }
+.toast {
+  background:rgba(0,16,50,0.97); border:1px solid #0af6;
+  border-radius:8px; padding:10px 18px; font-family:'Courier New',monospace;
+  display:flex; align-items:center; gap:12px; white-space:nowrap;
+  box-shadow:0 0 20px #0af3;
+  animation: t-in .3s ease, t-out .4s ease 2.7s both;
+}
+.toast .t-icon  { font-size:22px; }
+.toast .t-lbl   { font-size:9px; color:#0af; letter-spacing:2px; text-transform:uppercase; margin-bottom:2px; }
+.toast .t-name  { font-size:13px; font-weight:bold; color:#fff; }
+
+/* ── Score HUD cell (highlighted in wave mode) ── */
+#hcell-score { opacity:.3; transition:opacity .3s; }
+#hcell-score.active { opacity:1; }
+
+/* ── Wave mode button ── */
+.ab-wave { background:rgba(0,60,160,.65); color:#adf; border:1px solid #4af8; }
+.ab-wave.on { background:rgba(0,110,255,.55); border-color:#4af; color:#fff; }
+
 /* About button (in-sim) */
 #about-btn {
   position:fixed; bottom:8px; right:196px; z-index:102;
@@ -428,6 +602,14 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
     <button class="tbtn" data-ts="1">1×</button>
   </div>
 
+  <div class="sec">Game Mode</div>
+  <div class="ab-row">
+    <button class="abtn ab-wave" id="b-wave">🌊 Wave Mode</button>
+  </div>
+  <div id="wave-mode-hint" style="display:none;font-size:10px;color:#0f8;text-align:center;margin:4px 2px;line-height:1.6">
+    Threats auto-spawn · Press <strong style="color:#fff">I</strong> or click Intercept to defend
+  </div>
+
   <div class="sec">Actions</div>
   <div class="ab-row">
     <button class="abtn ab-atk" id="b-atk">💥 Launch Threat</button>
@@ -479,6 +661,7 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
   <div class="hcell"><div class="hk">Nearest</div><div class="hv" id="h-dist">—</div></div>
   <div class="hcell"><div class="hk">Kills</div><div class="hv" id="h-kills" style="color:#0f8">0</div></div>
   <div class="hcell"><div class="hk">Hits</div><div class="hv" id="h-hits" style="color:#f66">0</div></div>
+  <div class="hcell" id="hcell-score"><div class="hk">Score</div><div class="hv" id="h-score" style="color:#ffdd44">0</div></div>
   <div class="hcell"><div class="hk">Time to Impact</div><div class="hv" id="h-tti" style="color:#ffa500">—</div></div>
   <div class="hcell"><div class="hk">Status</div><div id="status">IDLE</div></div>
 </div>
@@ -486,6 +669,33 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
 <!-- Threat alarm elements -->
 <div id="alarm-border"></div>
 <div id="alarm-banner">⚠ THREAT DETECTED<span id="alarm-type"></span></div>
+
+<!-- Wave mode HUD bar -->
+<div id="wave-panel">
+  <div><div class="wp-lbl">Wave</div><div class="wp-val" id="wp-wave">1</div></div>
+  <div>
+    <div class="wp-lbl">City</div>
+    <div id="wave-hp">
+      <span class="heart" id="hp-1">❤️</span>
+      <span class="heart" id="hp-2">❤️</span>
+      <span class="heart" id="hp-3">❤️</span>
+    </div>
+  </div>
+  <div><div class="wp-lbl">Score</div><div class="wp-val" id="wp-score-val">0</div></div>
+</div>
+
+<!-- Wave clear / game-over overlay -->
+<div id="wave-overlay">
+  <div id="wov-title">WAVE CLEARED</div>
+  <div id="wov-sub">Wave 1 complete</div>
+  <div id="wov-score">Score: 0</div>
+  <div id="wov-hi">Best: 0</div>
+  <button class="wov-btn" id="wov-menu">Play Again</button>
+  <button class="wov-btn" id="wov-next" style="display:none">Next Wave ▶</button>
+</div>
+
+<!-- Achievement toasts -->
+<div id="toast-tray"></div>
 
 <!-- Mini radar -->
 <div id="radar-label">Radar</div>
@@ -507,12 +717,71 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
   <div><span class="ldot" style="background:#ff44aa"></span>CLOS beam</div>
 </div>
 
-<!-- Hints -->
-<div id="hints">
+<!-- Hints (hidden – replaced by action bar) -->
+<div id="hints" style="display:none">
   Drag: Orbit  |  Scroll: Zoom<br>
   Right-drag: Pan  |  Space: Pause<br>
   A: Spawn Threat  |  I: Intercept<br>
   1-4: Switch Threat Type
+</div>
+
+<!-- ═══ LEFT PANEL TOGGLE ═══ -->
+<button id="panel-toggle" title="Toggle settings panel">⚙ SETTINGS</button>
+
+<!-- ═══ BOTTOM ACTION BAR ═══ -->
+<div id="action-bar">
+
+  <!-- Threat Type -->
+  <div class="ab-sect" id="ab-thr-sect">
+    <div class="ab-lbl">Threat Type</div>
+    <div style="display:flex;gap:5px">
+      <button class="thr-ab-btn on" data-abthr="srbm"><span class="ab-ico">🚀</span>SRBM</button>
+      <button class="thr-ab-btn"    data-abthr="mrbm"><span class="ab-ico">💫</span>MRBM</button>
+      <button class="thr-ab-btn"    data-abthr="icbm"><span class="ab-ico">☄️</span>ICBM</button>
+      <button class="thr-ab-btn"    data-abthr="cruise"><span class="ab-ico">✈️</span>Cruise</button>
+    </div>
+  </div>
+
+  <div class="ab-sep"></div>
+
+  <!-- Launch (sandbox only) -->
+  <div class="ab-sect" id="ab-launch-sect">
+    <div class="ab-lbl">Sandbox</div>
+    <button id="ab-launch">💥 LAUNCH<span class="key-hint">KEY: A</span></button>
+  </div>
+
+  <div class="ab-sep"></div>
+
+  <!-- 🚀 INTERCEPT — main action -->
+  <div class="ab-sect">
+    <button id="ab-intercept">🚀 INTERCEPT<span class="key-hint">KEY: I</span></button>
+  </div>
+
+  <div class="ab-sep"></div>
+
+  <!-- Guidance Law -->
+  <div class="ab-sect">
+    <div class="ab-lbl">Guidance Law</div>
+    <div style="display:flex;gap:5px">
+      <button class="law-ab-btn on"  data-ablaw="pp"   style="--lc:#00ff88">PP</button>
+      <button class="law-ab-btn"     data-ablaw="pn"   style="--lc:#00aaff">PN</button>
+      <button class="law-ab-btn"     data-ablaw="apn"  style="--lc:#aa44ff">APN</button>
+      <button class="law-ab-btn"     data-ablaw="lp"   style="--lc:#ffaa00">LP</button>
+      <button class="law-ab-btn"     data-ablaw="clos" style="--lc:#ff4488">CLOS</button>
+    </div>
+  </div>
+
+  <div class="ab-sep"></div>
+
+  <!-- Control -->
+  <div class="ab-sect">
+    <div class="ab-lbl">Control</div>
+    <div style="display:flex;gap:6px">
+      <button class="ab-ctrl-btn" id="ab-pause">⏸ PAUSE</button>
+      <button class="ab-ctrl-btn" id="ab-wave-ab">🌊 WAVE</button>
+    </div>
+  </div>
+
 </div>
 
 <!-- ═══ INTRO / STORY SCREEN ═══ -->
@@ -1227,38 +1496,38 @@ class ThreatAlarm {
     if (this.ctx) return;
     this.ctx = new (window.AudioContext || window.webkitAudioContext)();
     this.master = this.ctx.createGain();
-    this.master.gain.value = 0.35;
+    this.master.gain.value = 0.28;
     this.master.connect(this.ctx.destination);
   }
 
-  // Synthesise a two-tone warble: high chirp then low chirp
+  // Synthesise a soft two-tone alert: sine wave ping then low tone
   _chirp() {
     if (!this.ctx || !this.active) return;
     const now = this.ctx.currentTime;
 
-    // Tone 1 — high warning chirp
+    // Tone 1 — gentle sine ping (was harsh sawtooth)
     const o1 = this.ctx.createOscillator();
     const g1 = this.ctx.createGain();
-    o1.type = 'sawtooth';
-    o1.frequency.setValueAtTime(1100, now);
-    o1.frequency.linearRampToValueAtTime(880, now + 0.18);
-    g1.gain.setValueAtTime(0.6, now);
-    g1.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+    o1.type = 'sine';
+    o1.frequency.setValueAtTime(780, now);
+    o1.frequency.linearRampToValueAtTime(640, now + 0.25);
+    g1.gain.setValueAtTime(0.22, now);
+    g1.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
     o1.connect(g1); g1.connect(this.master);
-    o1.start(now); o1.stop(now + 0.22);
+    o1.start(now); o1.stop(now + 0.3);
 
-    // Tone 2 — low urgent beep (offset by 0.28s)
+    // Tone 2 — soft triangle lower note (was harsh square)
     const o2 = this.ctx.createOscillator();
     const g2 = this.ctx.createGain();
-    o2.type = 'square';
-    o2.frequency.value = 440;
-    g2.gain.setValueAtTime(0.4, now + 0.28);
-    g2.gain.exponentialRampToValueAtTime(0.001, now + 0.44);
+    o2.type = 'triangle';
+    o2.frequency.value = 390;
+    g2.gain.setValueAtTime(0.15, now + 0.35);
+    g2.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
     o2.connect(g2); g2.connect(this.master);
-    o2.start(now + 0.28); o2.stop(now + 0.45);
+    o2.start(now + 0.35); o2.stop(now + 0.56);
 
-    // Speed up after first 3 chirps (urgent mode)
-    const interval = this._beepCount < 3 ? 900 : 550;
+    // Gentle pace — slows down rather than speeding up
+    const interval = this._beepCount < 3 ? 1200 : 900;
     this._beepCount++;
     this._timer = setTimeout(() => this._chirp(), interval);
   }
@@ -1331,6 +1600,30 @@ class ThreatAlarm {
       n.connect(g); g.connect(this.master);
       n.start(now + i * 0.04); n.stop(now + i * 0.04 + 0.2);
     }
+  }
+
+  // Rising whoosh — interceptor launch
+  playLaunch() {
+    this._init();
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+    const now = this.ctx.currentTime;
+    const sweep = this.ctx.createOscillator();
+    const sweepG = this.ctx.createGain();
+    sweep.type = 'sawtooth';
+    sweep.frequency.setValueAtTime(90, now);
+    sweep.frequency.exponentialRampToValueAtTime(1600, now + 0.5);
+    sweepG.gain.setValueAtTime(0.4, now);
+    sweepG.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+    sweep.connect(sweepG); sweepG.connect(this.master);
+    sweep.start(now); sweep.stop(now + 0.55);
+    // Ignition click
+    const click = this.ctx.createOscillator();
+    const clickG = this.ctx.createGain();
+    click.type = 'square'; click.frequency.value = 180;
+    clickG.gain.setValueAtTime(0.3, now);
+    clickG.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+    click.connect(clickG); clickG.connect(this.master);
+    click.start(now); click.stop(now + 0.08);
   }
 }
 
@@ -1628,6 +1921,7 @@ class Simulation {
   constructor() {
     this.attackers = []; this.interceptors = []; this.explosions = [];
     this.paused = false; this.simTime = 0; this.kills = 0; this.hits = 0;
+    this.score = 0; this.waveMode = null;
     this.cityRadius = 15;
 
     this.renderer = new THREE.WebGLRenderer({antialias:true});
@@ -1708,6 +2002,7 @@ class Simulation {
     }
     if (best) inter.assignTarget(best);
     this.interceptors.push(inter);
+    alarm.playLaunch();
     return inter;
   }
 
@@ -1722,6 +2017,8 @@ class Simulation {
       if (atk.position.y <= 0 || (atk.isCruise && atk.position.distanceTo(this.cityPos) < this.cityRadius)) {
         if (atk.position.distanceTo(this.cityPos) < this.cityRadius * 2.5 || atk.isCruise) {
           this.hits++;
+          if (this.waveMode?.active) this.waveMode.onCityHit();
+          else AchievementSystem.recordHit();
           this.explode(atk.position, 0xff2200);
           this.flash('CITY HIT!', '#ff3333');
           alarm.playHit();
@@ -1739,6 +2036,8 @@ class Simulation {
         if (!atk.alive) continue;
         if (inter.position.distanceTo(atk.position) < inter.killRadius) {
           this.kills++;
+          if (this.waveMode?.active) this.waveMode.onKill(atk.threatType, inter.lawKey);
+          else AchievementSystem.recordKill(inter.lawKey, atk.threatType);
           this.explode(inter.position.clone().lerp(atk.position,.5), 0xff8800);
           this.flash('INTERCEPTED!', '#00ff88');
           alarm.playIntercept();
@@ -1817,7 +2116,7 @@ class Simulation {
     [...this.interceptors].forEach(i => { if(i.alive) i.destroy(); });
     this.explosions.forEach(e => e.dispose());
     this.attackers=[]; this.interceptors=[]; this.explosions=[];
-    this.simTime=0; this.kills=0; this.hits=0;
+    this.simTime=0; this.kills=0; this.hits=0; this.score=0;
     alarm.stop();
     document.getElementById('bigmsg').classList.remove('on');
     document.getElementById('log').innerHTML='';
@@ -1831,6 +2130,7 @@ class Simulation {
     const timeScale = parseFloat(document.getElementById('s-timescale')?.value || 1);
     const dt = rawDt * timeScale;
     this.update(dt);
+    if (this.waveMode) this.waveMode.update(rawDt);
     this._updateCamera();   // runs even when paused so missile is visible
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
@@ -1923,12 +2223,7 @@ const UI = {
 
     // Guidance law toggles
     document.querySelectorAll('#law-sel .tbtn').forEach(b => {
-      b.addEventListener('click', () => {
-        document.querySelectorAll('#law-sel .tbtn').forEach(x=>x.classList.remove('on'));
-        b.classList.add('on');
-        this.currentLaw = b.dataset.law;
-        this.updateAlgoPanel();
-      });
+      b.addEventListener('click', () => this.selectLaw(b.dataset.law));
     });
 
     // Threat type toggles
@@ -1969,11 +2264,69 @@ const UI = {
       sim.paused = !sim.paused;
       this.g('b-pause').textContent = sim.paused ? '▶ Resume' : '⏸ Pause';
     };
-    this.g('b-reset').onclick = () => { sim.reset(); sim.paused=false; this.g('b-pause').textContent='⏸ Pause'; };
+    this.g('b-reset').onclick = () => {
+      if (sim.waveMode?.active) sim.waveMode.stop();
+      sim.reset(); sim.paused=false; this.g('b-pause').textContent='⏸ Pause';
+      const wb = this.g('b-wave');
+      if (wb) { wb.classList.remove('on'); wb.textContent = '🌊 Wave Mode'; }
+    };
+
+    // Wave Mode toggle
+    this.g('b-wave').addEventListener('click', () => {
+      const btn = this.g('b-wave');
+      if (sim.waveMode.active) {
+        sim.waveMode.stop();
+        sim.reset(); sim.paused = false;
+        btn.classList.remove('on'); btn.textContent = '🌊 Wave Mode';
+        this.g('b-atk').disabled = false;
+        this.g('wave-mode-hint').style.display = 'none';
+      } else {
+        btn.classList.add('on'); btn.textContent = '⏹ Stop Wave';
+        this.g('b-atk').disabled = true;   // threats auto-spawn in wave mode
+        this.g('wave-mode-hint').style.display = 'block';
+        sim.waveMode.start();
+      }
+    });
+
+    // ── Action Bar wiring ──
+    this.g('ab-intercept').addEventListener('click', () => this.g('b-int').click());
+    this.g('ab-launch').addEventListener('click', () => this.g('b-atk').click());
+    this.g('ab-pause').addEventListener('click', () => {
+      this.g('b-pause').click();
+      this.g('ab-pause').textContent = sim.paused ? '▶ RESUME' : '⏸ PAUSE';
+    });
+
+    // Action bar threat buttons
+    document.querySelectorAll('.thr-ab-btn').forEach(b => {
+      b.addEventListener('click', () => this.selectThreat(b.dataset.abthr));
+    });
+
+    // Action bar guidance law buttons
+    document.querySelectorAll('.law-ab-btn').forEach(b => {
+      b.addEventListener('click', () => this.selectLaw(b.dataset.ablaw));
+    });
+
+    // Action bar wave toggle (mirrors the panel button)
+    this.g('ab-wave-ab').addEventListener('click', () => this.g('b-wave').click());
+
+    // Panel collapse toggle
+    this.g('panel-toggle').addEventListener('click', () => {
+      const panel = this.g('left');
+      const tog = this.g('panel-toggle');
+      const collapsed = panel.classList.toggle('collapsed');
+      tog.style.left = collapsed ? '0' : '';
+    });
+
+    // Keep ab-pause label in sync when space/panel pause used
+    const syncPauseLabel = () => {
+      const ab = this.g('ab-pause');
+      if (ab) ab.textContent = sim.paused ? '▶ RESUME' : '⏸ PAUSE';
+    };
+    this.g('b-pause').addEventListener('click', syncPauseLabel);
 
     // Keyboard
     document.addEventListener('keydown', e => {
-      if (e.code==='Space') { e.preventDefault(); this.g('b-pause').click(); }
+      if (e.code==='Space') { e.preventDefault(); this.g('b-pause').click(); syncPauseLabel(); }
       if (e.code==='KeyA') this.g('b-atk').click();
       if (e.code==='KeyI') this.g('b-int').click();
       if (e.key==='1') this.selectThreat('srbm');
@@ -2037,14 +2390,24 @@ const UI = {
   },
 
   selectThreat(key) {
-    document.querySelectorAll('#thr-sel .tbtn').forEach(b => {
-      b.classList.toggle('on', b.dataset.thr === key);
-    });
+    document.querySelectorAll('#thr-sel .tbtn').forEach(b =>
+      b.classList.toggle('on', b.dataset.thr === key));
+    document.querySelectorAll('.thr-ab-btn').forEach(b =>
+      b.classList.toggle('on', b.dataset.abthr === key));
     this.currentThr = key;
     this.updateThreatPanel();
     const t = THREATS[key];
     this.g('s-aspeed').value=t.speed; this.g('v-aspeed').textContent=t.speed;
     this.g('s-agrav').value=t.gravity; this.g('v-agrav').textContent=t.gravity;
+  },
+
+  selectLaw(key) {
+    document.querySelectorAll('#law-sel .tbtn').forEach(b =>
+      b.classList.toggle('on', b.dataset.law === key));
+    document.querySelectorAll('.law-ab-btn').forEach(b =>
+      b.classList.toggle('on', b.dataset.ablaw === key));
+    this.currentLaw = key;
+    this.updateAlgoPanel();
   },
 
   updateAlgoPanel() {
@@ -2077,6 +2440,28 @@ const UI = {
     this.g('h-dist').textContent = nd !== null ? nd.toFixed(1) : '—';
     this.g('h-kills').textContent = sim.kills;
     this.g('h-hits').textContent = sim.hits;
+    this.g('h-score').textContent = sim.score || 0;
+
+    // Pulse intercept button while threats are inbound
+    const intBtn = this.g('ab-intercept');
+    if (intBtn) intBtn.classList.toggle('pulsing', sim.attackers.some(a=>a.alive));
+
+    // Keep action-bar wave button state in sync
+    const waveAb = this.g('ab-wave-ab');
+    if (waveAb) {
+      const on = sim.waveMode?.active;
+      waveAb.classList.toggle('on', !!on);
+      waveAb.textContent = on ? '⏹ WAVE' : '🌊 WAVE';
+    }
+
+    // Hide launch section in wave mode
+    const launchSect = this.g('ab-launch-sect');
+    const thrSect = this.g('ab-thr-sect');
+    if (launchSect && thrSect) {
+      const wm = sim.waveMode?.active;
+      launchSect.style.opacity = wm ? '0.3' : '1';
+      launchSect.style.pointerEvents = wm ? 'none' : '';
+    }
     const tti = sim.timeToImpact();
     const ttiEl = this.g('h-tti');
     if (tti !== null) {
@@ -2220,6 +2605,388 @@ const UI = {
 };
 
 // ═══════════════════════════════════════════════════════════
+//  WAVE MODE DEFINITIONS
+// ═══════════════════════════════════════════════════════════
+// Each wave is a list of salvos. Each salvo is an array of threat types
+// that fire in tight succession (0.5 s stagger within the salvo).
+// salvoInterval = seconds between salvos.
+const WAVE_DEFS = [
+  // Wave 1 — two lone SRBMs, easy warm-up
+  { salvos: [['srbm'], ['srbm']],                                salvoInterval:12, bonus:150 },
+  // Wave 2 — SRBM, then a cruise+SRBM pair
+  { salvos: [['srbm'], ['cruise','srbm']],                       salvoInterval:10, bonus:200 },
+  // Wave 3 — two 2-missile salvos, first MRBM
+  { salvos: [['srbm','mrbm'], ['cruise','srbm']],                salvoInterval:9,  bonus:300 },
+  // Wave 4 — first 3-missile salvo
+  { salvos: [['mrbm','cruise'], ['srbm','mrbm','cruise']],       salvoInterval:8,  bonus:400 },
+  // Wave 5 — ICBM makes its entrance solo, then a mixed pair
+  { salvos: [['srbm','cruise'], ['icbm'], ['mrbm','cruise']],    salvoInterval:7,  bonus:550 },
+  // Wave 6 — ICBM + cruise simultaneously
+  { salvos: [['icbm','cruise'], ['mrbm','srbm','cruise']],       salvoInterval:7,  bonus:700 },
+  // Wave 7 — full saturation, 3-missile salvos
+  { salvos: [['icbm','mrbm','cruise'], ['srbm','icbm','cruise']], salvoInterval:6, bonus:900 },
+];
+const SCORE_PER_KILL = { srbm:100, mrbm:200, icbm:450, cruise:150 };
+const PERFECT_WAVE_BONUS = 350;
+
+// ═══════════════════════════════════════════════════════════
+//  ACHIEVEMENT SYSTEM
+// ═══════════════════════════════════════════════════════════
+const AchievementSystem = {
+  _unlocked: new Set(JSON.parse(localStorage.getItem('md_ach') || '[]')),
+  _lawsUsed: new Set(JSON.parse(localStorage.getItem('md_laws') || '[]')),
+  _sessionKills: 0,
+  _streak: 0,
+
+  _defs: {
+    first_blood:  { icon:'🎯', name:'First Blood',        desc:'Score your first intercept' },
+    triple:       { icon:'🔥', name:'Triple Threat',      desc:'3 kills in a row without a hit' },
+    five_streak:  { icon:'💥', name:'Five Alive',         desc:'5 kills in a row without a hit' },
+    algo_master:  { icon:'🧠', name:'Algorithm Master',   desc:'Score a kill with all 5 guidance laws' },
+    perfect_wave: { icon:'🛡️', name:'Iron Shield',        desc:'Complete a wave without any city hit' },
+    wave_5:       { icon:'🌊', name:'Tide Turner',        desc:'Survive to Wave 5' },
+    wave_10:      { icon:'🏆', name:'Last Line',          desc:'Survive to Wave 10' },
+    icbm_hunter:  { icon:'☄️', name:'ICBM Hunter',        desc:'Intercept an ICBM' },
+  },
+
+  unlock(id) {
+    if (this._unlocked.has(id)) return;
+    this._unlocked.add(id);
+    localStorage.setItem('md_ach', JSON.stringify([...this._unlocked]));
+    const def = this._defs[id];
+    if (def) this._toast(def);
+  },
+
+  recordKill(lawKey, thrType) {
+    this._sessionKills++;
+    this._streak++;
+    this._lawsUsed.add(lawKey);
+    localStorage.setItem('md_laws', JSON.stringify([...this._lawsUsed]));
+    if (this._sessionKills >= 1) this.unlock('first_blood');
+    if (this._streak >= 3)       this.unlock('triple');
+    if (this._streak >= 5)       this.unlock('five_streak');
+    if ([...this._lawsUsed].length >= 5) this.unlock('algo_master');
+    if (thrType === 'icbm')      this.unlock('icbm_hunter');
+  },
+
+  recordHit() { this._streak = 0; },
+
+  recordWave(waveNum) {
+    if (waveNum >= 5)  this.unlock('wave_5');
+    if (waveNum >= 10) this.unlock('wave_10');
+  },
+
+  recordPerfectWave() { this.unlock('perfect_wave'); },
+
+  _toast(def) {
+    const tray = document.getElementById('toast-tray');
+    if (!tray) return;
+    const el = document.createElement('div');
+    el.className = 'toast';
+    el.innerHTML = `<span class="t-icon">${def.icon}</span><div>
+      <div class="t-lbl">Achievement Unlocked</div>
+      <div class="t-name">${def.name}</div></div>`;
+    tray.appendChild(el);
+    setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 3200);
+  }
+};
+
+// ═══════════════════════════════════════════════════════════
+//  WAVE MODE
+// ═══════════════════════════════════════════════════════════
+class WaveMode {
+  constructor(sim) {
+    this.sim = sim;
+    this.active = false;
+    this.waveNum = 0;
+    this.cityHP = 3;
+    this.score = 0;
+    this.highScore = parseInt(localStorage.getItem('md_hiscore') || '0', 10);
+
+    // State: 'idle' | 'spawning' | 'clearing' | 'between' | 'countdown'
+    this._state = 'idle';
+    this._salvosLeft = [];
+    this._salvoTimer = 0;
+    this._clearTimer = 0;
+    this._countdownTimer = 0;
+    this._lastCountdownSec = -1;
+    this._waveHits = 0;
+    this._def = null;
+
+    this._bindButtons();
+  }
+
+  _getDef(n) {
+    if (n <= WAVE_DEFS.length) return WAVE_DEFS[n - 1];
+    const extra = n - WAVE_DEFS.length;
+    const pool = ['icbm','mrbm','cruise','srbm','icbm','cruise'];
+    const numSalvos = Math.min(2 + Math.floor(extra / 2), 4);
+    const salvos = [];
+    for (let s = 0; s < numSalvos; s++) {
+      const sz = Math.min(2 + Math.floor(extra / 3), 4);
+      const salvo = [];
+      for (let i = 0; i < sz; i++) salvo.push(pool[Math.floor(Math.random() * pool.length)]);
+      salvos.push(salvo);
+    }
+    return {
+      salvos,
+      salvoInterval: Math.max(4, 7 - extra * 0.4),
+      bonus: 800 + extra * 120
+    };
+  }
+
+  start() {
+    this.active = true;
+    this.waveNum = 0;
+    this.cityHP = 3;
+    this.score = 0;
+    this.sim.reset();
+    this.sim.paused = false;
+    this.sim.score = 0;
+    document.getElementById('wave-panel').classList.add('on');
+    document.getElementById('hcell-score').classList.add('active');
+    document.getElementById('wave-overlay').classList.remove('on');
+    this._updateHP();
+    this._beginWave();
+  }
+
+  stop() {
+    this.active = false;
+    this._state = 'idle';
+    document.getElementById('wave-panel').classList.remove('on');
+    document.getElementById('hcell-score').classList.remove('active');
+    document.getElementById('wave-overlay').classList.remove('on');
+  }
+
+  _beginWave() {
+    this.waveNum++;
+    this._def = this._getDef(this.waveNum);
+    this._salvosLeft = [...this._def.salvos]; // copy salvo queue
+    this._salvoTimer = 0.8; // brief lead-in before first salvo
+    this._clearTimer = 0;
+    this._waveHits = 0;
+    this._state = 'spawning';
+    document.getElementById('wp-wave').textContent = this.waveNum;
+    AchievementSystem.recordWave(this.waveNum);
+    const el = document.getElementById('bigmsg');
+    el.textContent = `WAVE ${this.waveNum}`; el.style.color = '#0af';
+    el.classList.add('on');
+    setTimeout(() => el.classList.remove('on'), 1800);
+  }
+
+  // Wave-scaled speed (+7%/wave, cap 2×) and gravity (−5%/wave, floor 0.45×).
+  // Flatter, faster ballistics are harder to intercept in the terminal phase.
+  _scaledParams(thrType) {
+    const t = THREATS[thrType];
+    const w = this.waveNum;
+    const speedMult = Math.min(2.0, 1 + (w - 1) * 0.07);
+    const gravMult  = t.cruise ? 1 : Math.max(0.45, 1 - (w - 1) * 0.05);
+    return {
+      speed:   Math.round(t.speed * speedMult),
+      gravity: t.cruise ? 0 : parseFloat((t.gravity * gravMult).toFixed(1))
+    };
+  }
+
+  // Spawn one threat, update sliders + threat-type selector so the player
+  // can see exactly what's incoming. Wave mode requires MANUAL interception —
+  // the player must press I (or click Intercept) to respond.
+  _spawnOne(thrType) {
+    const { speed, gravity } = this._scaledParams(thrType);
+    this.sim.spawnAttacker(thrType, speed, gravity);
+
+    // Mirror speed/gravity to sliders
+    const sEl = document.getElementById('s-aspeed'), vEl = document.getElementById('v-aspeed');
+    if (sEl) { sEl.value = speed; vEl.textContent = speed; }
+    if (!THREATS[thrType].cruise) {
+      const gEl = document.getElementById('s-agrav'), gVEl = document.getElementById('v-agrav');
+      if (gEl) { gEl.value = gravity; gVEl.textContent = gravity; }
+    }
+
+    // Highlight the correct threat-type button
+    document.querySelectorAll('#thr-sel .tbtn').forEach(b =>
+      b.classList.toggle('on', b.dataset.thr === thrType)
+    );
+    UI.currentThr = thrType;
+    UI.updateThreatPanel();
+  }
+
+  // Fire all missiles in a salvo with a 0.5 s stagger between each.
+  _fireSalvo(salvo) {
+    salvo.forEach((thrType, i) => {
+      if (i === 0) { this._spawnOne(thrType); }
+      else { setTimeout(() => { if (this.active) this._spawnOne(thrType); }, i * 500); }
+    });
+  }
+
+  // Called from Simulation.loop() with rawDt (wall-clock seconds)
+  update(rawDt) {
+    if (!this.active || this.sim.paused || this._state === 'idle' || this._state === 'between') return;
+
+    if (this._state === 'spawning') {
+      this._salvoTimer -= rawDt;
+      if (this._salvoTimer <= 0 && this._salvosLeft.length > 0) {
+        const salvo = this._salvosLeft.shift();
+        this._fireSalvo(salvo);
+        this._salvoTimer = this._def.salvoInterval;
+        if (this._salvosLeft.length === 0) this._state = 'clearing';
+      }
+    }
+
+    if (this._state === 'clearing') {
+      if (this.sim.attackers.length === 0 && this.sim.interceptors.length === 0) {
+        this._clearTimer += rawDt;
+        if (this._clearTimer >= 0.6) this._onWaveClear(); // tight: 0.6 s after sky clears
+      } else {
+        this._clearTimer = 0;
+      }
+    }
+
+    // Countdown ticker for next wave
+    if (this._state === 'countdown') {
+      this._countdownTimer -= rawDt;
+      const secs = Math.ceil(this._countdownTimer);
+      if (secs !== this._lastCountdownSec) {
+        this._lastCountdownSec = secs;
+        const el = document.getElementById('bigmsg');
+        if (secs > 0) {
+          el.textContent = `WAVE ${this.waveNum + 1} IN ${secs}`;
+          el.style.color = '#0af'; el.classList.add('on');
+        }
+      }
+      if (this._countdownTimer <= 0) {
+        document.getElementById('bigmsg').classList.remove('on');
+        this.sim.reset();
+        this.sim.paused = false;
+        this._state = 'idle';
+        this._beginWave();
+      }
+    }
+  }
+
+  onKill(thrType, lawKey) {
+    if (!this.active) return;
+    this.score += SCORE_PER_KILL[thrType] || 100;
+    this.sim.score = this.score;
+    this._updateScoreHUD();
+    AchievementSystem.recordKill(lawKey, thrType);
+  }
+
+  onCityHit() {
+    if (!this.active) return;
+    this._waveHits++;
+    this.cityHP = Math.max(0, this.cityHP - 1);
+    AchievementSystem.recordHit();
+    this._updateHP();
+    if (this.cityHP <= 0) setTimeout(() => this._gameOver(), 1800);
+  }
+
+  _onWaveClear() {
+    this._state = 'between'; // pause spawning while we flash the result
+    const perfect = this._waveHits === 0;
+    const bonus = this._def.bonus + (perfect ? PERFECT_WAVE_BONUS : 0);
+    this.score += bonus;
+    this.sim.score = this.score;
+    if (perfect) AchievementSystem.recordPerfectWave();
+    if (this.score > this.highScore) {
+      this.highScore = this.score;
+      localStorage.setItem('md_hiscore', this.highScore);
+    }
+    this._updateScoreHUD();
+
+    // Flash result in bigmsg — no overlay, no click needed
+    const el = document.getElementById('bigmsg');
+    el.textContent = perfect ? `✦ PERFECT  +${bonus}` : `CLEARED  +${bonus}`;
+    el.style.color = perfect ? '#ffdd44' : '#0f8';
+    el.classList.add('on');
+
+    // After 1.2 s start the live countdown to next wave
+    setTimeout(() => {
+      el.classList.remove('on');
+      this._state = 'countdown';
+      this._countdownTimer = 3;
+      this._lastCountdownSec = -1;
+    }, 1200);
+  }
+
+  _gameOver() {
+    if (this._state === 'idle') return; // already handled
+    this.active = false;
+    this._state = 'idle';
+    alarm.stop();
+    if (this.score > this.highScore) {
+      this.highScore = this.score;
+      localStorage.setItem('md_hiscore', this.highScore);
+    }
+    document.getElementById('wave-panel').classList.remove('on');
+    this._showOverlay(
+      'CITY FALLEN',
+      `Survived ${this.waveNum} wave${this.waveNum !== 1 ? 's' : ''}`,
+      false
+    );
+  }
+
+  _showOverlay(title, sub, showNext) {
+    const titleEl = document.getElementById('wov-title');
+    // Force re-trigger CSS animation
+    titleEl.style.animation = 'none';
+    void titleEl.offsetHeight;
+    titleEl.style.animation = '';
+    titleEl.textContent = title;
+    document.getElementById('wov-sub').textContent = sub;
+    document.getElementById('wov-score').textContent = `Score: ${this.score}`;
+    document.getElementById('wov-hi').textContent = `Best: ${this.highScore}`;
+    document.getElementById('wov-next').style.display = showNext ? '' : 'none';
+    document.getElementById('wov-menu').textContent = showNext ? 'Quit' : 'Play Again';
+    document.getElementById('wave-overlay').classList.add('on');
+  }
+
+  _updateHP() {
+    for (let i = 1; i <= 3; i++) {
+      const el = document.getElementById('hp-' + i);
+      if (el) el.classList.toggle('dead', i > this.cityHP);
+    }
+  }
+
+  _updateScoreHUD() {
+    const a = document.getElementById('wp-score-val');
+    if (a) a.textContent = this.score;
+    const b = document.getElementById('h-score');
+    if (b) b.textContent = this.score;
+  }
+
+  _bindButtons() {
+    // Buttons exist in DOM immediately (static HTML), so bind now
+    const nextBtn = document.getElementById('wov-next');
+    const menuBtn = document.getElementById('wov-menu');
+    if (nextBtn) nextBtn.addEventListener('click', () => {
+      document.getElementById('wave-overlay').classList.remove('on');
+      this.sim.reset();
+      this.sim.paused = false;
+      this._beginWave();
+    });
+    if (menuBtn) menuBtn.addEventListener('click', () => {
+      document.getElementById('wave-overlay').classList.remove('on');
+      if (!this.active) {
+        // Game over — "Play Again"
+        document.getElementById('b-atk').disabled = true;
+        document.getElementById('wave-mode-hint').style.display = 'block';
+        document.getElementById('b-wave').classList.add('on');
+        document.getElementById('b-wave').textContent = '⏹ Stop Wave';
+        this.start();
+      } else {
+        // Wave clear — "Quit"
+        this.stop();
+        this.sim.reset();
+        document.getElementById('b-atk').disabled = false;
+        document.getElementById('wave-mode-hint').style.display = 'none';
+        const btn = document.getElementById('b-wave');
+        if (btn) { btn.classList.remove('on'); btn.textContent = '🌊 Wave Mode'; }
+      }
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
 //  INTRO SCREEN
 // ═══════════════════════════════════════════════════════════
 (function initIntro() {
@@ -2242,6 +3009,7 @@ const UI = {
     document.getElementById('intro-overlay').classList.add('hidden');
     const sim = new Simulation();
     window._sim = sim;
+    sim.waveMode = new WaveMode(sim);
     UI.init(sim);
   }
 

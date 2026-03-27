@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.62.11 87bfad18">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2026-03-23T06:47:00Z"/>
+
+  <node id="452414173" lat="12.9685163" lon="77.5887312">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="663564844" lat="12.9741326" lon="77.5906196">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="4130934096" lat="12.9644831" lon="77.5550085">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="4130962989" lat="12.9612397" lon="77.5508007">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="name" v="doctor water"/>
+  </node>
+  <node id="4474703097" lat="12.9460176" lon="77.6729597">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="name" v="Tap"/>
+    <tag k="name:en" v="Tap"/>
+  </node>
+  <node id="4583513490" lat="13.0193646" lon="77.6336294">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="4763212133" lat="12.9502621" lon="77.5867696">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="4803282822" lat="12.8338784" lon="77.7345385">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="4824906934" lat="12.9489409" lon="77.5862685">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5130801923" lat="12.9845313" lon="77.4819830">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="name" v="RO water"/>
+  </node>
+  <node id="5172791588" lat="12.9224630" lon="77.4998007">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="check_date" v="2025-06-16"/>
+  </node>
+  <node id="5218115318" lat="12.9225504" lon="77.4997608">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5259390024" lat="12.9622432" lon="77.5494253">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="name" v="Doctor water"/>
+  </node>
+  <node id="5342648714" lat="12.9658991" lon="77.5348151">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5468995521" lat="12.9571332" lon="77.6361666">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5585615328" lat="12.9742298" lon="77.6377772">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5585615827" lat="12.9741225" lon="77.6395370">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5585635624" lat="12.9736419" lon="77.6378172">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5585639123" lat="12.9733584" lon="77.6385106">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5646997521" lat="12.9745214" lon="77.6388200">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5678058124" lat="12.9642911" lon="77.5416866">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="name" v="RO Center"/>
+  </node>
+  <node id="5678058126" lat="12.9672282" lon="77.5412711">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="name" v="RO center"/>
+  </node>
+  <node id="5714974442" lat="12.9712390" lon="77.6507228">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="6017445196" lat="13.0005043" lon="77.5496820">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fountain" v="bubbler"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="layer" v="1"/>
+    <tag k="level" v="1"/>
+  </node>
+  <node id="6373419686" lat="12.9740688" lon="77.5909788">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="name" v="Purified Drinking Water"/>
+  </node>
+  <node id="6645712418" lat="13.0020685" lon="77.5518841">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="man_made" v="water_tap"/>
+  </node>
+  <node id="6657987176" lat="12.8718611" lon="77.6393899">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="operator" v="WATER ATM"/>
+  </node>
+  <node id="7291611531" lat="13.0013511" lon="77.5477481">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="7518127508" lat="12.9658359" lon="77.7112826">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="7518141838" lat="12.9663686" lon="77.7110717">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="9161061918" lat="12.9749225" lon="77.5935146">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="man_made" v="water_tap"/>
+    <tag k="name" v="Purified Drinking Water"/>
+  </node>
+  <node id="9538931895" lat="13.0295200" lon="77.5583544">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="9573433528" lat="12.9882900" lon="77.5798635">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="9624315267" lat="12.7102368" lon="77.2673245">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="9689131152" lat="13.1038350" lon="77.5740452">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="operator" v="Dr water"/>
+  </node>
+  <node id="9779742231" lat="12.9848191" lon="77.5913119">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="9922802663" lat="12.9501718" lon="77.5861922">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="9922802664" lat="12.9502137" lon="77.5853258">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="9922831525" lat="12.9491419" lon="77.5829266">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="no"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="9922831538" lat="12.9484923" lon="77.5809176">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="9936668824" lat="12.9874406" lon="77.5509466">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="10006972490" lat="12.9909755" lon="77.5465210">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="10105851144" lat="13.0286206" lon="77.5437151">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="10761482790" lat="12.9885017" lon="77.6042837">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="10801954701" lat="12.8736686" lon="77.5426663">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="name" v="Pure Drinking Water Plant"/>
+  </node>
+  <node id="10823514250" lat="12.9376767" lon="77.5717354">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="10854298592" lat="12.9173497" lon="77.5799198">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="11067397943" lat="13.0262617" lon="77.6257895">
+    <tag k="addr:full" v="1st Main Road, HBR layout"/>
+    <tag k="addr:street" v="1st Main Road"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="name" v="Government Water ATM"/>
+  </node>
+  <node id="11069650929" lat="13.2009875" lon="77.7095751">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="11069650938" lat="13.2009980" lon="77.7087235">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fountain" v="bubbler"/>
+  </node>
+  <node id="11207651305" lat="12.9845380" lon="77.5898492">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="11248572521" lat="13.0081132" lon="77.5723864">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="11292271383" lat="12.9295542" lon="77.5801064">
+    <tag k="access" v="customers"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+    <tag k="operator" v="BMRCL"/>
+  </node>
+  <node id="11292276523" lat="12.9069289" lon="77.5731279">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+  </node>
+  <node id="11292276524" lat="12.9073783" lon="77.5729982">
+    <tag k="access" v="customers"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+  </node>
+  <node id="11298111561" lat="12.9701208" lon="77.5920682">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="0"/>
+  </node>
+  <node id="11298161566" lat="12.9541005" lon="77.5913286">
+    <tag k="access" v="permissive"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="0"/>
+  </node>
+  <node id="11337052384" lat="13.0146834" lon="77.5538978">
+    <tag k="access" v="customers"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="no"/>
+    <tag k="fountain" v="bubbler"/>
+    <tag k="layer" v="1"/>
+    <tag k="level" v="1"/>
+  </node>
+  <node id="11355730129" lat="12.9461493" lon="77.5951480">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="operator" v="BBMP"/>
+  </node>
+  <node id="11355774237" lat="12.9615281" lon="77.5751736">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="layer" v="-1"/>
+    <tag k="level" v="-1"/>
+  </node>
+  <node id="11364084197" lat="12.9160186" lon="77.5738814">
+    <tag k="access" v="yes"/>
+    <tag k="addr:floor" v="1"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="no"/>
+    <tag k="operator" v="BMRCL"/>
+  </node>
+  <node id="11364084198" lat="12.9153707" lon="77.5735293">
+    <tag k="access" v="yes"/>
+    <tag k="addr:floor" v="1"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="no"/>
+    <tag k="operator" v="BMRCL"/>
+  </node>
+  <node id="11445710029" lat="13.0951276" lon="77.5777262">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="yes"/>
+    <tag k="operator" v="BBMP"/>
+    <tag k="payment:cash" v="yes"/>
+  </node>
+  <node id="11465535797" lat="12.9966335" lon="77.5630375">
+    <tag k="access" v="customers"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="no"/>
+    <tag k="layer" v="1"/>
+    <tag k="level" v="1"/>
+  </node>
+  <node id="11493951520" lat="12.9734535" lon="77.6408882">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="yes"/>
+    <tag k="man_made" v="water_tap"/>
+    <tag k="operator" v="BBMP"/>
+  </node>
+  <node id="11496780439" lat="13.1047037" lon="77.5770629">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="charge" v="5 INR"/>
+    <tag k="fee" v="yes"/>
+  </node>
+  <node id="11505830446" lat="12.9537213" lon="77.6203916">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="yes"/>
+  </node>
+  <node id="11531669571" lat="13.2009135" lon="77.7109101">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="fee" v="no"/>
+    <tag k="fountain" v="bubbler"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="11868278523" lat="12.9731758" lon="77.6167298">
+    <tag k="access" v="customers"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+    <tag k="operator" v="BMRCL"/>
+  </node>
+  <node id="11906895965" lat="12.9570441" lon="77.5337487">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="operator" v="Water ATM"/>
+    <tag k="payment:cash" v="yes"/>
+  </node>
+  <node id="11906901465" lat="12.9552827" lon="77.5325885">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="operator" v="Water ATM"/>
+    <tag k="payment:cash" v="yes"/>
+  </node>
+  <node id="11942413044" lat="12.9529928" lon="77.5274725">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="yes"/>
+    <tag k="payment:cash" v="yes"/>
+    <tag k="wheelchair" v="no"/>
+  </node>
+  <node id="11942427776" lat="12.9547341" lon="77.5278838">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="yes"/>
+    <tag k="payment:cash" v="yes"/>
+    <tag k="wheelchair" v="no"/>
+  </node>
+  <node id="11949210773" lat="12.9998483" lon="77.5781152">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="11998985478" lat="13.0480153" lon="77.5005074">
+    <tag k="access" v="permissive"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="fee" v="yes"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+    <tag k="operator" v="BMRCL"/>
+  </node>
+  <node id="12000085312" lat="12.9509026" lon="77.5833921">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="no"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="12000109175" lat="12.9532948" lon="77.5851274">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12019980193" lat="12.9806872" lon="77.5980723">
+    <tag k="access" v="permissive"/>
+    <tag k="addr:floor" v="-1"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="no"/>
+    <tag k="level" v="-1"/>
+    <tag k="operator" v="BMRCL"/>
+  </node>
+  <node id="12048924773" lat="12.9382871" lon="77.5799952">
+    <tag k="access" v="permissive"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="no"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+    <tag k="operator" v="BMRCL"/>
+  </node>
+  <node id="12072910368" lat="12.9810019" lon="77.7276465">
+    <tag k="access" v="customers"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+    <tag k="operator" v="BMRCL"/>
+  </node>
+  <node id="12089389290" lat="12.9560646" lon="77.5299698">
+    <tag k="access" v="yes"/>
+    <tag k="addr:floor" v="G"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="covered" v="yes"/>
+    <tag k="fee" v="yes"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="0"/>
+    <tag k="man_made" v="water_tap"/>
+    <tag k="payment:cash" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="12101714004" lat="12.9636410" lon="77.6012528">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12103115002" lat="12.9646683" lon="77.6057034">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12118305070" lat="12.9756342" lon="77.6067226">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="covered" v="yes"/>
+    <tag k="fee" v="no"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="operator" v="BMRCL"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="12135160549" lat="12.9957425" lon="77.7578469">
+    <tag k="access" v="customers"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+    <tag k="operator" v="BMRCL"/>
+  </node>
+  <node id="12149767435" lat="13.0257700" lon="77.5844822">
+    <tag k="access" v="permissive"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="no"/>
+  </node>
+  <node id="12161153127" lat="12.9461753" lon="77.5801491">
+    <tag k="access" v="customers"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="no"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+    <tag k="operator" v="BMRCL"/>
+  </node>
+  <node id="12161153128" lat="12.9461746" lon="77.5799556">
+    <tag k="access" v="customers"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="no"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+    <tag k="operator" v="BMRCL"/>
+  </node>
+  <node id="12161830085" lat="12.9207582" lon="77.5967675">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="indoor" v="yes"/>
+  </node>
+  <node id="12163099769" lat="12.9442542" lon="77.5972774">
+    <tag k="access" v="permissive"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="0"/>
+  </node>
+  <node id="12165946576" lat="13.1971662" lon="77.7195125">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+  </node>
+  <node id="12246090207" lat="12.9964976" lon="77.6937845">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fee" v="no"/>
+  </node>
+  <node id="12265459595" lat="13.1042463" lon="77.5963517">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="charge" v="5 INR"/>
+    <tag k="fee" v="yes"/>
+    <tag k="payment:cash" v="yes"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="12325185722" lat="12.9783510" lon="77.6382108">
+    <tag k="access" v="customers"/>
+    <tag k="addr:floor" v="1"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="covered" v="yes"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="operator" v="BMRCL"/>
+  </node>
+  <node id="12367521749" lat="12.9701128" lon="77.6564543">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12414199254" lat="13.0069307" lon="77.5754305">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12506944687" lat="12.9778557" lon="77.5733035">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12506944688" lat="12.9778773" lon="77.5730400">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12506944690" lat="12.9783124" lon="77.5724137">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12506944692" lat="12.9779955" lon="77.5717753">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12506944695" lat="12.9779250" lon="77.5723064">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12507390919" lat="12.9618509" lon="77.6389224">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12518226615" lat="13.0328946" lon="77.5336759">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fountain" v="bubbler"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="layer" v="1"/>
+    <tag k="level" v="1"/>
+  </node>
+  <node id="12740975401" lat="12.8838795" lon="77.7519412">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12743805130" lat="13.0463318" lon="77.4990643">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="operator" v="BBMP"/>
+  </node>
+  <node id="12777774134" lat="12.9984145" lon="77.5558812">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="12941892978" lat="13.0261052" lon="77.6374404">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="13131435578" lat="12.7413206" lon="77.8095360">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="charge" v="1 inr"/>
+    <tag k="description" v="can water refilling for drinking purpose"/>
+    <tag k="fee" v="yes"/>
+    <tag k="operator" v="tamilnadu governemnet"/>
+    <tag k="payment:cash" v="yes"/>
+    <tag k="wheelchair" v="no"/>
+  </node>
+  <node id="13152414822" lat="12.9295808" lon="77.5763482">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="13161243881" lat="12.9962277" lon="77.7606531">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="13161243893" lat="12.9963127" lon="77.7601258">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="13205603110" lat="12.9757341" lon="77.5715103">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="bottle" v="yes"/>
+    <tag k="indoor" v="yes"/>
+  </node>
+  <node id="13481201803" lat="13.0242063" lon="77.5868628">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+
+</osm>
