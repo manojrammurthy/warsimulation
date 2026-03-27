@@ -517,6 +517,19 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
 .ab-wave { background:rgba(0,60,160,.65); color:#adf; border:1px solid #4af8; }
 .ab-wave.on { background:rgba(0,110,255,.55); border-color:#4af; color:#fff; }
 
+/* ── Country selector ── */
+#country-grid { display:flex; flex-wrap:wrap; gap:4px; margin-top:4px; }
+.country-btn {
+  flex:1; min-width:70px; display:flex; flex-direction:column; align-items:center; gap:2px;
+  padding:5px 4px; border:1px solid #07f4; border-radius:6px;
+  background:rgba(0,16,50,.5); color:#7af; cursor:pointer;
+  font-family:'Courier New',monospace; font-size:8px; letter-spacing:.5px;
+  transition:all .15s; text-align:center;
+}
+.country-btn .cflag { font-size:16px; line-height:1; }
+.country-btn.on { background:rgba(0,80,200,.45); border-color:#0af; color:#fff; box-shadow:0 0 6px #0af4; }
+.country-btn:hover { background:rgba(0,50,130,.5); }
+
 /* About button (in-sim) */
 #about-btn {
   position:fixed; bottom:8px; right:196px; z-index:102;
@@ -554,8 +567,8 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
 
   <div class="sec">Attacker Parameters</div>
   <div class="sr"><label>Speed</label>
-    <input type="range" id="s-aspeed" min="15" max="150" value="50">
-    <span class="v" id="v-aspeed">50</span></div>
+    <input type="range" id="s-aspeed" min="15" max="200" value="68">
+    <span class="v" id="v-aspeed">68</span></div>
   <div class="sr"><label>Gravity</label>
     <input type="range" id="s-agrav" min="0" max="30" value="10">
     <span class="v" id="v-agrav">10</span></div>
@@ -571,13 +584,13 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
 
   <div class="sec">Interceptor Parameters</div>
   <div class="sr"><label>Speed</label>
-    <input type="range" id="s-ispeed" min="30" max="220" value="95">
-    <span class="v" id="v-ispeed">95</span></div>
+    <input type="range" id="s-ispeed" min="30" max="220" value="70">
+    <span class="v" id="v-ispeed">70</span></div>
   <div class="sr"><label>Turn Rate °/s</label>
-    <input type="range" id="s-iturn" min="30" max="400" value="140">
-    <span class="v" id="v-iturn">140</span></div>
+    <input type="range" id="s-iturn" min="30" max="400" value="90">
+    <span class="v" id="v-iturn">90</span></div>
   <div class="sr"><label>Kill Radius</label>
-    <input type="range" id="s-kill" min="1" max="20" value="6">
+    <input type="range" id="s-kill" min="1" max="20" value="5">
     <span class="v" id="v-kill">6</span></div>
   <div class="sr"><label>PN Const (N)</label>
     <input type="range" id="s-N" min="1" max="8" value="4" step=".5">
@@ -600,6 +613,17 @@ h2 { text-align:center; font-size:12px; letter-spacing:2px; color:#0af;
     <button class="tbtn" data-ts="0.5">0.5×</button>
     <button class="tbtn on" data-ts="0.3">0.3×</button>
     <button class="tbtn" data-ts="1">1×</button>
+  </div>
+
+  <div class="sec">Threat Origin</div>
+  <div id="country-grid">
+    <button class="country-btn on" data-country="generic"><span class="cflag">🌐</span>Generic</button>
+    <button class="country-btn" data-country="north_korea"><span class="cflag">🇰🇵</span>N. Korea</button>
+    <button class="country-btn" data-country="iran"><span class="cflag">🇮🇷</span>Iran</button>
+    <button class="country-btn" data-country="russia"><span class="cflag">🇷🇺</span>Russia</button>
+    <button class="country-btn" data-country="china"><span class="cflag">🇨🇳</span>China</button>
+    <button class="country-btn" data-country="india"><span class="cflag">🇮🇳</span>India</button>
+    <button class="country-btn" data-country="usa"><span class="cflag">🇺🇸</span>USA</button>
   </div>
 
   <div class="sec">Game Mode</div>
@@ -1028,18 +1052,26 @@ const GUIDANCE = {
   },
   lp: {
     name: 'Lead Pursuit (Iron Dome)', badge: 'LP', color: '#ffaa00',
-    formula: 'aim at pos + vel · t_estimate (iterative)',
+    formula: 'aim at pos + vel · t_estimate + ½·a·t² (iterative)',
     desc: 'Predict where the target will be at intercept time, then fly straight there. Very energy-efficient — produces nearly straight interceptor paths. Iron Dome adds a threat-scoring layer: only fires if predicted impact is inside a protected zone.',
     sys: 'Iron Dome (Tamir), David\'s Sling, SM-3',
     update(inter, tgt, _launcher, dt) {
-      // Iteratively refine time-to-intercept estimate
+      // Estimate target acceleration for maneuver compensation
+      let aTarget = new THREE.Vector3();
+      if (tgt.prevVelocity && dt > 0)
+        aTarget = new THREE.Vector3().subVectors(tgt.velocity, tgt.prevVelocity).divideScalar(dt);
+      // Iteratively refine time-to-intercept with acceleration correction
       let tEst = inter.position.distanceTo(tgt.position) / inter.speed;
-      for (let i = 0; i < 4; i++) {
-        const pred = tgt.position.clone().addScaledVector(tgt.velocity, tEst);
+      for (let i = 0; i < 5; i++) {
+        const pred = tgt.position.clone()
+          .addScaledVector(tgt.velocity, tEst)
+          .addScaledVector(aTarget, 0.5 * tEst * tEst);
         tEst = inter.position.distanceTo(pred) / inter.speed;
       }
-      const predicted = tgt.position.clone().addScaledVector(tgt.velocity, tEst);
-      inter.predictedPt = predicted.clone(); // stored for visualization
+      const predicted = tgt.position.clone()
+        .addScaledVector(tgt.velocity, tEst)
+        .addScaledVector(aTarget, 0.5 * tEst * tEst);
+      inter.predictedPt = predicted.clone();
       const dir = new THREE.Vector3().subVectors(predicted, inter.position).normalize();
       return steer(inter.velocity, dir, inter.maxTurnRate * dt);
     }
@@ -1066,26 +1098,70 @@ const GUIDANCE = {
 // ═══════════════════════════════════════════════════════════
 //  THREAT TYPE DEFINITIONS
 // ═══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+//  COUNTRY MISSILE NAMES
+// ═══════════════════════════════════════════════════════════
+const COUNTRY_MISSILES = {
+  generic:     { flag:'🌐', label:'Generic',
+    srbm:{name:'SRBM',full:'Short-Range Ballistic Missile'}, mrbm:{name:'MRBM',full:'Medium-Range Ballistic Missile'}, icbm:{name:'ICBM',full:'Intercontinental Ballistic Missile'}, cruise:{name:'Cruise',full:'Cruise Missile'} },
+  north_korea: { flag:'🇰🇵', label:'North Korea',
+    srbm:{name:'Hwasong-5',full:'Hwasong-5 SRBM (Scud-B variant, ~300 km)'}, mrbm:{name:'Nodong-1',full:'Nodong-1 MRBM (~1,300 km range)'}, icbm:{name:'Hwasong-17',full:'Hwasong-17 "Monster ICBM" (15,000+ km)'}, cruise:{name:'Hwasal-2',full:'Hwasal-2 Strategic Cruise Missile'} },
+  iran:        { flag:'🇮🇷', label:'Iran',
+    srbm:{name:'Fateh-110',full:'Fateh-110 SRBM (~300 km, solid-fuel)'}, mrbm:{name:'Shahab-3',full:'Shahab-3 MRBM (~1,900 km, based on Nodong)'}, icbm:{name:'Khorramshahr-4',full:'Khorramshahr-4 "Kheibar" (~2,000 km)'}, cruise:{name:'Shahed-136',full:'Shahed-136 Kamikaze Loitering Munition'} },
+  russia:      { flag:'🇷🇺', label:'Russia',
+    srbm:{name:'Iskander-M',full:'Iskander-M SRBM (~500 km, quasi-ballistic)'}, mrbm:{name:'Tochka-U',full:'OTR-21 Tochka-U (~185 km, cluster warhead)'}, icbm:{name:'RS-28 Sarmat',full:'RS-28 Sarmat "Satan II" (~18,000 km, MIRVed)'}, cruise:{name:'Kalibr',full:'3M-54 Kalibr sea-launched cruise missile'} },
+  china:       { flag:'🇨🇳', label:'China',
+    srbm:{name:'DF-15B',full:'Dongfeng-15B SRBM (~700 km, solid-fuel)'}, mrbm:{name:'DF-21D',full:'Dongfeng-21D Anti-Ship Ballistic Missile'}, icbm:{name:'DF-41',full:'Dongfeng-41 ICBM (~15,000 km, 10 MIRVs)'}, cruise:{name:'CJ-10',full:'Changjian-10 Land-Attack Cruise Missile'} },
+  india:       { flag:'🇮🇳', label:'India',
+    srbm:{name:'Prithvi-II',full:'Prithvi-II SRBM (~350 km, liquid-fuel)'}, mrbm:{name:'Agni-II',full:'Agni-II MRBM (~2,000 km, solid-fuel)'}, icbm:{name:'Agni-V',full:'Agni-V ICBM (~5,500+ km, road-mobile)'}, cruise:{name:'BrahMos',full:'BrahMos Supersonic Cruise (~290–800 km)'} },
+  usa:         { flag:'🇺🇸', label:'USA',
+    srbm:{name:'ATACMS',full:'MGM-140 ATACMS (~300 km, GPS guided)'}, mrbm:{name:'Pershing II',full:'Pershing II MRBM (~1,800 km, retired 1991)'}, icbm:{name:'Minuteman III',full:'LGM-30G Minuteman III ICBM (~13,000 km)'}, cruise:{name:'Tomahawk',full:'BGM-109 Tomahawk Land Attack Missile'} },
+};
+
+let _selectedCountry = 'generic';
+
+function applyCountry(key) {
+  _selectedCountry = key;
+  const c = COUNTRY_MISSILES[key];
+  // Update THREATS display names
+  ['srbm','mrbm','icbm','cruise'].forEach(t => {
+    THREATS[t].name = c[t].name;
+    THREATS[t].full = c[t].full;
+  });
+  // Refresh panel and all threat buttons
+  document.querySelectorAll('#thr-sel .tbtn').forEach(b => {
+    if (b.dataset.thr) b.textContent = COUNTRY_MISSILES[key][b.dataset.thr]?.name || b.textContent;
+  });
+  document.querySelectorAll('.thr-ab-btn').forEach(b => {
+    const thr = b.dataset.abthr;
+    if (thr) b.querySelector('.ab-ico').nextSibling.textContent = COUNTRY_MISSILES[key][thr]?.name || thr.toUpperCase();
+  });
+  // Highlight selected country button
+  document.querySelectorAll('.country-btn').forEach(b => b.classList.toggle('on', b.dataset.country === key));
+  // Re-render threat panel if UI is ready
+  if (typeof UI !== 'undefined' && UI.updateThreatPanel) UI.updateThreatPanel();
+}
+
 const THREATS = {
   srbm: {
     name: 'SRBM', full: 'Short-Range Ballistic Missile',
     desc: 'Scud-like. Simple parabolic arc. Interceptable in boost phase (close to launch), midcourse, or terminal phase. Iron Dome & Patriot effective.',
-    speed:55, gravity:12, maxAlt:75, radius:80, color:0xff3333, cruise:false
+    speed:68, gravity:12, maxAlt:75, radius:80, color:0xff3333, cruise:false
   },
   mrbm: {
     name: 'MRBM', full: 'Medium-Range Ballistic Missile',
     desc: 'Higher, faster arc. Exo-atmospheric midcourse phase. Requires THAAD or upper-tier Patriot. Very short terminal window (< 30 sec).',
-    speed:85, gravity:7, maxAlt:145, radius:110, color:0xff6600, cruise:false
+    speed:100, gravity:7, maxAlt:145, radius:110, color:0xff6600, cruise:false
   },
   icbm: {
     name: 'ICBM', full: 'Intercontinental Ballistic Missile',
     desc: 'Extreme altitude (sub-orbital). Reentry vehicle may deploy decoys, MaRVs (maneuvering), or MIRVs. Only SM-3 Block IIA or Ground-based Midcourse Defense (GMD) can intercept.',
-    speed:135, gravity:5, maxAlt:230, radius:130, color:0xff0066, cruise:false
+    speed:155, gravity:5, maxAlt:230, radius:130, color:0xff0066, cruise:false
   },
   cruise: {
     name: 'Cruise', full: 'Cruise Missile',
     desc: 'Low-altitude, terrain-hugging flight. Subsonic but radar-stealthy due to small RCS and low altitude. Evades high-altitude defenses. C-RAM and short-range interceptors most effective.',
-    speed:32, gravity:0, maxAlt:0, radius:100, color:0xffaa00, cruise:true, cruiseAlt:8
+    speed:52, gravity:0, maxAlt:0, radius:100, color:0xffaa00, cruise:true, cruiseAlt:8
   }
 };
 
@@ -1171,70 +1247,124 @@ class Missile {
     this.group.position.copy(pos);
     scene.add(this.group);
 
-    const bodyMat  = new THREE.MeshPhongMaterial({ color: bodyColor, emissive: bodyColor, emissiveIntensity: 0.25, shininess: 80 });
-    const darkMat  = new THREE.MeshPhongMaterial({ color: 0x222222, shininess: 40 });
-    const finMat   = new THREE.MeshPhongMaterial({ color: bodyColor, emissive: bodyColor, emissiveIntensity: 0.15, side: THREE.DoubleSide });
-    const bellMat  = new THREE.MeshPhongMaterial({ color: 0x888888, shininess: 120 });
+    const bodyMat = new THREE.MeshPhongMaterial({ color: bodyColor, emissive: bodyColor, emissiveIntensity: 0.3, shininess: 100 });
+    const darkMat = new THREE.MeshPhongMaterial({ color: 0x1a1a1a, shininess: 60 });
+    const finMat  = new THREE.MeshPhongMaterial({ color: bodyColor, emissive: bodyColor, emissiveIntensity: 0.2, side: THREE.DoubleSide });
+    const bellMat = new THREE.MeshPhongMaterial({ color: 0x999999, emissive: 0x333333, shininess: 150 });
+    const noseMat = opt.noseColor
+      ? new THREE.MeshPhongMaterial({ color: opt.noseColor, emissive: opt.noseColor, emissiveIntensity: 0.5, shininess: 80 })
+      : bodyMat;
 
-    const R  = opt.radius || 0.55;   // body radius
-    const BL = opt.bodyLen || 7;     // body length
-    const NL = opt.noseLen || 3.5;   // nosecone length
+    const R  = opt.radius  || 0.55;
+    const BL = opt.bodyLen || 7;
+    const NL = opt.noseLen || 3.5;
 
-    // Nosecone
-    const noseGeo = new THREE.ConeGeometry(R, NL, 10);
+    // ── Nosecone (warhead tip in noseColor if set) ──
+    const noseGeo = new THREE.ConeGeometry(R, NL, 12);
     noseGeo.rotateX(Math.PI / 2);
-    const nose = new THREE.Mesh(noseGeo, bodyMat);
+    const nose = new THREE.Mesh(noseGeo, noseMat);
     nose.position.z = BL / 2 + NL / 2;
     this.group.add(nose);
 
-    // Body cylinder
-    const bodyGeo = new THREE.CylinderGeometry(R, R, BL, 12);
+    // ── Body cylinder ──
+    const bodyGeo = new THREE.CylinderGeometry(R, R * (opt.tapered ? 0.85 : 1), BL, 14);
     bodyGeo.rotateX(Math.PI / 2);
     const body = new THREE.Mesh(bodyGeo, bodyMat);
     this.group.add(body);
 
-    // Stripe band near nose
-    const bandGeo = new THREE.CylinderGeometry(R + 0.05, R + 0.05, 0.5, 12);
+    // ── Collar band just below nose ──
+    const bandGeo = new THREE.CylinderGeometry(R + 0.06, R + 0.06, 0.45, 14);
     bandGeo.rotateX(Math.PI / 2);
     const band = new THREE.Mesh(bandGeo, darkMat);
-    band.position.z = BL / 2 - 1.2;
+    band.position.z = BL / 2 - 1.0;
     this.group.add(band);
 
-    // Engine bell (rear)
-    const bellGeo = new THREE.ConeGeometry(R * 1.3, R * 1.8, 10);
-    bellGeo.rotateX(-Math.PI / 2);
-    const bell = new THREE.Mesh(bellGeo, bellMat);
-    bell.position.z = -(BL / 2 + R * 0.9);
-    this.group.add(bell);
-
-    // 4 fins (small flat delta fins near the tail)
-    const finW = opt.finW || R * 2.2;
-    const finH = opt.finH || R * 2.8;
-    const finGeo = new THREE.BoxGeometry(0.15, finH, finW);
-    for (let i = 0; i < 4; i++) {
-      const fin = new THREE.Mesh(finGeo, finMat);
-      fin.position.z = -(BL / 2 - finW * 0.4);
-      fin.rotation.z = (Math.PI / 2) * i;
-      fin.position.x = Math.cos((Math.PI / 2) * i) * (R + finH * 0.35);
-      fin.position.y = Math.sin((Math.PI / 2) * i) * (R + finH * 0.35);
-      this.group.add(fin);
+    // ── Stage separation ring (ICBM) ──
+    if (opt.stageRing) {
+      const ringGeo = new THREE.CylinderGeometry(R + 0.18, R + 0.18, 0.7, 14);
+      ringGeo.rotateX(Math.PI / 2);
+      const ring = new THREE.Mesh(ringGeo, new THREE.MeshPhongMaterial({ color: 0x333333, shininess: 80 }));
+      ring.position.z = BL * 0.05;
+      this.group.add(ring);
+      // Second stage ring
+      const ring2Geo = new THREE.CylinderGeometry(R + 0.12, R + 0.12, 0.5, 14);
+      ring2Geo.rotateX(Math.PI / 2);
+      const ring2 = new THREE.Mesh(ring2Geo, new THREE.MeshPhongMaterial({ color: 0x222222, shininess: 60 }));
+      ring2.position.z = -BL * 0.25;
+      this.group.add(ring2);
     }
 
-    // Engine plume (animated glow behind nozzle)
-    // opt.plumeColor: attackers get orange, interceptors get blue-white
-    const plumeColor = opt.plumeColor || 0xff6600;
-    const plumeGeo = new THREE.SphereGeometry(R * 2.2, 8, 8);
-    this.plume = new THREE.Mesh(plumeGeo,
-      new THREE.MeshBasicMaterial({ color: plumeColor, transparent: true, opacity: 0.8 }));
-    this.plume.position.z = -(BL / 2 + R * 2.2);
-    this.group.add(this.plume);
+    // ── Engine bell cluster ──
+    const numBells = opt.bellCount || 1;
+    for (let b = 0; b < numBells; b++) {
+      const bellGeo = new THREE.ConeGeometry(R * (numBells > 1 ? 0.8 : 1.35), R * 1.9, 12);
+      bellGeo.rotateX(-Math.PI / 2);
+      const bell = new THREE.Mesh(bellGeo, bellMat);
+      const bAngle = (Math.PI * 2 / numBells) * b;
+      const bOff = numBells > 1 ? R * 0.65 : 0;
+      bell.position.set(Math.cos(bAngle) * bOff, Math.sin(bAngle) * bOff, -(BL / 2 + R * 0.95));
+      this.group.add(bell);
+    }
 
-    // Inner bright core of plume
-    const coreGeo = new THREE.SphereGeometry(R * 1.0, 8, 8);
+    // ── Fins / Wings ──
+    const finW = opt.finW || R * 2.2;
+    const finH = opt.finH || R * 2.8;
+    if (opt.wings) {
+      // Cruise missile: wide horizontal wings + vertical tail
+      const wingSpan = opt.wingSpan || R * 9;
+      const wingGeo = new THREE.BoxGeometry(wingSpan, 0.12, finW * 0.9);
+      const wing = new THREE.Mesh(wingGeo, finMat);
+      wing.position.z = -(BL / 2 - finW * 0.35);
+      this.group.add(wing);
+      // Vertical stabiliser
+      const tailGeo = new THREE.BoxGeometry(0.12, finH * 1.1, finW * 0.75);
+      const tail = new THREE.Mesh(tailGeo, finMat);
+      tail.position.z = -(BL / 2 - finW * 0.3);
+      this.group.add(tail);
+      // Small canard fins near nose
+      const canardGeo = new THREE.BoxGeometry(R * 4, 0.1, R * 1.2);
+      const canard = new THREE.Mesh(canardGeo, finMat);
+      canard.position.z = BL * 0.3;
+      this.group.add(canard);
+      // Air intake scoop underneath
+      const intakeGeo = new THREE.CylinderGeometry(R * 0.55, R * 0.55, R * 0.9, 8);
+      intakeGeo.rotateX(Math.PI / 2);
+      const intake = new THREE.Mesh(intakeGeo, darkMat);
+      intake.position.set(0, -(R * 1.1), BL * 0.1);
+      this.group.add(intake);
+    } else {
+      // Ballistic: 4 delta fins
+      const finGeo = new THREE.BoxGeometry(0.14, finH, finW);
+      for (let i = 0; i < 4; i++) {
+        const fin = new THREE.Mesh(finGeo, finMat);
+        fin.position.z  = -(BL / 2 - finW * 0.4);
+        fin.rotation.z  = (Math.PI / 2) * i;
+        fin.position.x  = Math.cos((Math.PI / 2) * i) * (R + finH * 0.35);
+        fin.position.y  = Math.sin((Math.PI / 2) * i) * (R + finH * 0.35);
+        this.group.add(fin);
+      }
+    }
+
+    // ── Engine plume (multi-layer) ──
+    const plumeColor = opt.plumeColor || 0xff5500;
+    // Outer bloom
+    const plumeGeo = new THREE.SphereGeometry(R * 2.5, 8, 8);
+    this.plume = new THREE.Mesh(plumeGeo,
+      new THREE.MeshBasicMaterial({ color: plumeColor, transparent: true, opacity: 0.65 }));
+    this.plume.position.z = -(BL / 2 + R * 2.4);
+    this.group.add(this.plume);
+    // Bright core
+    const coreGeo = new THREE.SphereGeometry(R * 1.1, 8, 8);
     this.plumeCore = new THREE.Mesh(coreGeo,
       new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 }));
-    this.plumeCore.position.z = -(BL / 2 + R * 1.8);
+    this.plumeCore.position.z = -(BL / 2 + R * 1.9);
     this.group.add(this.plumeCore);
+    // Flat glow disc at nozzle exit
+    const discGeo = new THREE.CircleGeometry(R * 2.0, 12);
+    this.plumeDisc = new THREE.Mesh(discGeo,
+      new THREE.MeshBasicMaterial({ color: plumeColor, transparent: true, opacity: 0.5, side: THREE.DoubleSide }));
+    this.plumeDisc.position.z = -(BL / 2 + R * 0.6);
+    this.group.add(this.plumeDisc);
 
     this.trail = new Trail(scene, trailColor);
 
@@ -1255,10 +1385,14 @@ class Missile {
     this.trail.add(this.position);
     this.orient();
     // Animate plume flicker
-    const flicker = 0.75 + Math.random() * 0.5;
+    const flicker = 0.78 + Math.random() * 0.44;
     this.plume.scale.setScalar(flicker);
-    this.plumeCore.scale.setScalar(flicker * 0.8);
-    this.plume.material.opacity = 0.6 + Math.random() * 0.35;
+    this.plumeCore.scale.setScalar(flicker * 0.75);
+    this.plume.material.opacity = 0.5 + Math.random() * 0.35;
+    if (this.plumeDisc) {
+      this.plumeDisc.scale.setScalar(0.8 + Math.random() * 0.45);
+      this.plumeDisc.material.opacity = 0.35 + Math.random() * 0.3;
+    }
   }
 
   destroy() {
@@ -1281,19 +1415,55 @@ class Missile {
 class Attacker extends Missile {
   constructor(scene, threatType, startPos, cityPos, speed, gravity) {
     const t = THREATS[threatType];
-    // Attacker body: fatter, shorter nose — Soviet/Iranian Shahab style
-    const atkOpt = threatType === 'icbm'
-      ? { radius: 0.7, bodyLen: 10, noseLen: 4.5, finW: 1.8, finH: 2.2 }
-      : threatType === 'cruise'
-        ? { radius: 0.4, bodyLen: 6,  noseLen: 2.0, finW: 2.5, finH: 1.2 }  // cruise has wings
-        : { radius: 0.62, bodyLen: 7.5, noseLen: 3.8, finW: 1.6, finH: 2.0 };
-    super(scene, t.color, threatType==='cruise' ? 0xff8800 : 0xff5533, startPos, atkOpt);
+    const atkOpt = {
+      icbm:   { radius:0.9,  bodyLen:14,  noseLen:6,   finW:2.4, finH:3.0,
+                noseColor:0xcc0000, stageRing:true, tapered:false, bellCount:3,
+                plumeColor:0xff3300 },
+      mrbm:   { radius:0.68, bodyLen:9.5, noseLen:5.0, finW:1.9, finH:2.5,
+                noseColor:0x991100, tapered:true,
+                plumeColor:0xff4400 },
+      srbm:   { radius:0.60, bodyLen:7.5, noseLen:3.8, finW:1.6, finH:2.0,
+                noseColor:0x771100,
+                plumeColor:0xff5500 },
+      cruise: { radius:0.38, bodyLen:7.5, noseLen:2.2, finW:1.8, finH:1.1,
+                wings:true, wingSpan:7.5, noseColor:0x888800,
+                plumeColor:0xaaccff },
+    }[threatType] || { radius:0.60, bodyLen:7.5, noseLen:3.8 };
+    super(scene, t.color, threatType==='cruise' ? 0x88aaff : 0xff4400, startPos, atkOpt);
     this.threatType = threatType;
     this.gravity = gravity;
     this.isCruise = t.cruise || false;
     this.cruiseAlt = t.cruiseAlt || 8;
     this.prevVelocity = new THREE.Vector3();
     this.cityPos = cityPos.clone();
+
+    // ── Evasion state ──────────────────────────────────────
+    const _evasionCfg = {
+      icbm:   { detRad:25, strength:10, duration:2.5, cooldown:3.0 },
+      mrbm:   { detRad:20, strength: 7, duration:2.0, cooldown:2.5 },
+      srbm:   { detRad:15, strength: 4, duration:1.5, cooldown:2.0 },
+      cruise: { detRad:18, strength: 8, duration:1.8, cooldown:2.2 },
+    }[threatType] || { detRad:15, strength:4, duration:1.5, cooldown:2.0 };
+    this._detRad  = _evasionCfg.detRad;
+    this._evaStr  = _evasionCfg.strength;
+    this._evaDur  = _evasionCfg.duration;
+    this._evaCool = _evasionCfg.cooldown;
+    this.evading  = false;
+    this._evaVec  = new THREE.Vector3();
+    this._evaTimer = 0;
+    this._evaCoolT = 0;
+    this._origTrailColor = null;
+    // Autonomous jinking (no interceptor needed)
+    const _jinkCfg = {
+      icbm:   { minInt:6, maxInt:10, str:8  },
+      mrbm:   { minInt:4, maxInt:7,  str:6  },
+      srbm:   { minInt:3, maxInt:5,  str:3.5},
+      cruise: { minInt:3, maxInt:6,  str:3  },
+    }[threatType] || { minInt:4, maxInt:7, str:4 };
+    this._jinkStr  = _jinkCfg.str;
+    this._jinkT    = _jinkCfg.minInt + Math.random() * (_jinkCfg.maxInt - _jinkCfg.minInt);
+    this._jinkMin  = _jinkCfg.minInt;
+    this._jinkMax  = _jinkCfg.maxInt;
 
     if (this.isCruise) {
       // Fly at constant altitude toward city
@@ -1313,18 +1483,131 @@ class Attacker extends Missile {
       this.velocity.set(flatDir.x * vh, vy0, flatDir.z * vh);
     }
   }
+  _randomPerp(avoidVec) {
+    const base = avoidVec || this.velocity;
+    const up = Math.abs(base.y) < 0.85 ? new THREE.Vector3(0,1,0) : new THREE.Vector3(1,0,0);
+    const perp = new THREE.Vector3().crossVectors(base, up).normalize();
+    if (Math.random() < 0.5) perp.negate();
+    if (this.isCruise) { perp.y = 0; perp.normalize(); }
+    if (perp.lengthSq() < 0.01) perp.set(1,0,0);
+    return perp.normalize();
+  }
+
+  _startJink(vec, label, impulseScale) {
+    // Apply as VELOCITY impulse so trajectory actually changes
+    const spd = this.velocity.length();
+    const imp = spd * (impulseScale || 0.55);
+    this.velocity.addScaledVector(vec, imp);
+    // Cap speed so missile doesn't accelerate indefinitely
+    const newSpd = this.velocity.length();
+    if (newSpd > spd * 1.7) this.velocity.multiplyScalar(spd * 1.7 / newSpd);
+
+    this._evaVec.copy(vec);
+    this.evading = true;
+    this._evaTimer = this._evaDur;
+    if (this._origTrailColor === null)
+      this._origTrailColor = this.trail.line.material.color.getHex();
+    this.trail.line.material.color.setHex(0xffee00);
+    window._sim?.log(`⚠ ${label}`);
+  }
+
+  _recalibrate() {
+    if (this.isCruise) return; // cruise uses continuous horizontal steering
+    const h = Math.max(0, this.position.y);
+    const vy = this.velocity.y;
+    const g = this.gravity;
+    // Solve: h + vy*t - 0.5*g*t^2 = 0  →  t = (vy + sqrt(vy²+2gh)) / g
+    const disc = vy * vy + 2 * g * h;
+    if (disc < 0) return;
+    const tImpact = (vy + Math.sqrt(disc)) / g;
+    if (tImpact < 0.3) return; // too close to ground, let it fall
+    // Required horizontal speed and direction to reach city in tImpact seconds
+    const toCity = new THREE.Vector3().subVectors(this.cityPos, this.position);
+    toCity.y = 0;
+    const hDist = toCity.length();
+    if (hDist < 1) return;
+    const requiredHSpd = hDist / tImpact;
+    const dir = toCity.normalize();
+    this.velocity.x = dir.x * requiredHSpd;
+    this.velocity.z = dir.z * requiredHSpd;
+    // vertical velocity kept as-is — gravity arc is now correct again
+  }
+
+  _checkEvasion(dt) {
+    // ── Autonomous periodic jink ──
+    this._jinkT -= dt;
+    if (this._jinkT <= 0 && !this.evading) {
+      this._jinkT = this._jinkMin + Math.random() * (this._jinkMax - this._jinkMin);
+      const mName = THREATS[this.threatType]?.name || this.threatType.toUpperCase();
+      this._startJink(this._randomPerp(), `${mName} jinking`, this.isCruise ? 0.25 : 0.4);
+      return;
+    }
+
+    // ── Tick active evasion ──
+    if (this._evaCoolT > 0) this._evaCoolT -= dt;
+    if (this.evading) {
+      this._evaTimer -= dt;
+      if (this._evaTimer <= 0) {
+        this.evading = false;
+        this._evaCoolT = this._evaCool;
+        if (this._origTrailColor !== null)
+          this.trail.line.material.color.setHex(this._origTrailColor);
+        this._recalibrate(); // recompute trajectory to guarantee city hit
+      }
+      return;
+    }
+
+    // ── Reactive: interceptor detected ──
+    if (this._evaCoolT > 0) return;
+    const ints = window._sim?.interceptors || [];
+    for (const intr of ints) {
+      if (!intr.alive || intr.target !== this) continue;
+      if (intr.position.distanceTo(this.position) < this._detRad) {
+        const toMe = new THREE.Vector3().subVectors(this.position, intr.position);
+        const mName = THREATS[this.threatType]?.name || this.threatType.toUpperCase();
+        this._startJink(this._randomPerp(toMe), `⚡ ${mName} evading interceptor!`, 0.75);
+        break;
+      }
+    }
+  }
+
   update(dt) {
     if (!this.alive) return;
     this.prevVelocity.copy(this.velocity);
     this.age += dt;
+
+    this._checkEvasion(dt);
+
     if (this.isCruise) {
-      // Maintain cruise altitude with gentle correction
       const yErr = this.cruiseAlt - this.position.y;
       this.velocity.y += yErr * 3 * dt;
     } else {
       this.velocity.y -= this.gravity * dt;
     }
+
+    // Steer horizontal velocity toward city at a turn rate.
+    // Vertical component is left to gravity / cruise altitude correction.
+    const toCityFlat = new THREE.Vector3().subVectors(this.cityPos, this.position);
+    toCityFlat.y = 0;
+    const hDist = toCityFlat.length();
+    if (hDist > 0.01) {
+      toCityFlat.normalize();
+      const hSpd = Math.sqrt(this.velocity.x * this.velocity.x + this.velocity.z * this.velocity.z);
+      if (hSpd > 0.01) {
+        const curDir = new THREE.Vector3(this.velocity.x / hSpd, 0, this.velocity.z / hSpd);
+        // Turn rate: slow while evading (jink wins), fast after jink (recalibrate)
+        // Doubles further from city so out-of-bounds missiles snap back hard
+        let rate = this.evading ? 1.2 : 4.5;
+        if (hDist > 100) rate = Math.max(rate, 8.0);
+        else if (hDist > 70) rate = Math.max(rate, 5.5);
+        curDir.lerp(toCityFlat, Math.min(1.0, rate * dt)).normalize();
+        this.velocity.x = curDir.x * hSpd;
+        this.velocity.z = curDir.z * hSpd;
+      }
+    }
+
     this.position.addScaledVector(this.velocity, dt);
+
     this.syncMeshes();
   }
 }
@@ -1336,9 +1619,9 @@ class Interceptor extends Missile {
   constructor(scene, launcherPos, speed, turnRateDeg, killR, lawKey, N) {
     const law = GUIDANCE[lawKey];
     // trail color = law color
-    // Interceptor: slim, long, dart-like — Arrow / Tamir style
-    // Blue-white plume = solid rocket motor (cooler burn than attacker orange)
-    const intOpt = { radius: 0.32, bodyLen: 8, noseLen: 4.5, finW: 1.1, finH: 1.6, plumeColor: 0x88ccff };
+    // Interceptor: slim dart — Arrow / Tamir / SM-3 style
+    const intOpt = { radius:0.28, bodyLen:9, noseLen:5.5, finW:1.0, finH:1.4,
+                     noseColor:0xeef4ff, plumeColor:0x66bbff };
     super(scene, parseInt(law.color.replace('#',''), 16), parseInt(law.color.replace('#',''), 16), launcherPos, intOpt);
     this.speed = speed;
     this.maxTurnRate = THREE.MathUtils.degToRad(turnRateDeg);
@@ -1384,8 +1667,23 @@ class Interceptor extends Missile {
     this.age += dt;
 
     if (this.target && this.target.alive) {
+      // Boost turn rate when target is actively jinking (detected via velocity change)
+      let effectiveTurnRate = this.maxTurnRate;
+      if (this.target.prevVelocity && dt > 0) {
+        const tgtAccel = new THREE.Vector3()
+          .subVectors(this.target.velocity, this.target.prevVelocity)
+          .divideScalar(dt).length();
+        // If target acceleration > threshold (jink detected), allow up to 2× turn rate
+        if (tgtAccel > 15) {
+          const boost = Math.min(2.0, 1.0 + tgtAccel / 80);
+          effectiveTurnRate = this.maxTurnRate * boost;
+        }
+      }
+      const savedRate = this.maxTurnRate;
+      this.maxTurnRate = effectiveTurnRate;
       const law = GUIDANCE[this.lawKey];
       const newVel = law.update(this, this.target, this.launcherPos, dt, this.N);
+      this.maxTurnRate = savedRate;
       if (newVel && !isNaN(newVel.x)) this.velocity.copy(newVel);
 
       // Update LOS line
@@ -2072,7 +2370,7 @@ class Simulation {
     const el = document.getElementById('log');
     const d = document.createElement('div');
     d.textContent = `[${this.simTime.toFixed(1)}s] ${msg}`;
-    d.style.color = msg.includes('HIT') ? '#f66' : '#0f8';
+    d.style.color = msg.includes('HIT') ? '#f66' : msg.includes('⚠') ? '#ffcc00' : '#0f8';
     el.prepend(d);
     while (el.children.length > 20) el.removeChild(el.lastChild);
   }
@@ -2286,6 +2584,11 @@ const UI = {
         this.g('wave-mode-hint').style.display = 'block';
         sim.waveMode.start();
       }
+    });
+
+    // ── Country selector ──
+    document.querySelectorAll('.country-btn').forEach(b => {
+      b.addEventListener('click', () => applyCountry(b.dataset.country));
     });
 
     // ── Action Bar wiring ──
